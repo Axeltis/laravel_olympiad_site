@@ -17,7 +17,7 @@ service=${COMPOSE_PROJECT_NAME}:latest
 deploy: build-no-cache env start composer-install key-generate config-cache
 
 env:
-	@make exec cmd="cp ./.env.example ./.env"
+	@cp ./.env.example ./.env
 
 build:
 	@docker-compose -f docker-compose.yml build
@@ -67,3 +67,8 @@ seed:
 	@make exec cmd="php artisan db:seed --force"
 config-cache:
 	@make exec cmd="php artisan config:cache"
+
+git:
+	@git add .
+	@git commit -m "$m"
+	@git push -u origin develop
