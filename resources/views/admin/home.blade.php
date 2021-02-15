@@ -3,15 +3,14 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">{{ __('Список пользователей') }}</div>
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+
+                       <a href="{{ route('admin.edit_user') }}" class="btn btn-xs btn-info ">Создать пользователя</a>
+                        <p>
+                        <div class="row-md-12">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -21,6 +20,7 @@
                                     <th scope="col">E-mail</th>
                                     <th scope="col">Роль</th>
                                     <th scope="col">Статус</th>
+                                    <th scope="col">Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -32,11 +32,21 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role->name }}</td>
                                         <td>{{ $user->status->name }}</td>
+                                        <td>
+                                            <!--<button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>-->
+                                            <a href="{{route('admin.edit_user',['id'=>$user->id])}}" type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                            <form action="{{ route('admin.delete_user',['id'=>$user->id]) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash "></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
 
                                 </tbody>
                             </table>
+                        </div>
                     </div>
                 </div>
             </div>

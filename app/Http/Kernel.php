@@ -2,7 +2,8 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\AccessRoute;
+
+
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,6 +66,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,#\Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'access'=>\App\Http\Middleware\AccessRoute::class
+        'access.route'=>\App\Http\Middleware\AccessRoute::class,
+        
+       
     ];
 }
