@@ -50,7 +50,7 @@ class EmailVerificationRequest extends FormRequest
         if ($this->user()->status->slug=='waiting') {
             $status = UserStatus::where('slug','active')->first();
             $this->user()->status()->associate($status);
-            $this->user()->markEmailAsVerified();
+            $this->user()->save();
             event(new Verified($this->user()));
         }
     }

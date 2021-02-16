@@ -22,20 +22,11 @@ class AccessRoute
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        $user = $request->user();
 
-        if(!is_null($user)){
-            if($user->role->slug!=$role){
-                abort(403);
-            }       
-        }
-        else{
-            abort(403);
-        }
         return $next($request);
-       
-        
 
-       
+
+
+
     }
 }

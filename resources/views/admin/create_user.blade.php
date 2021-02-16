@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Регистрация') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.edit_user',['id'=>$user->id]) }}">
+                        <form method="POST" action="{{ route('admin.create_user') }}">
                             @csrf
                             <div class="form-group row">
                                 <div class="form-group col">
@@ -19,7 +19,7 @@
                                         <div class="col-md-6">
                                             <input id="name" type="text"
                                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                                   value="{{ $user->name }}" required autocomplete="name" autofocus>
+                                                   value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                             @error('name')
                                             <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
 
                                         <div class="col-md-6">
                                             <input id="middlename" type="text" class="form-control" name="middlename"
-                                                   value="{{ $user->middlename }}" autofocus>
+                                                   value="{{ old('middlename') }}" autofocus>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -45,7 +45,7 @@
                                             <input id="surname" type="text"
                                                    class="form-control @error('surname') is-invalid @enderror"
                                                    name="surname"
-                                                   value="{{ $user->surname }}" required autocomplete="surname"
+                                                   value="{{ old('surname') }}" required autocomplete="surname"
                                                    autofocus>
 
                                             @error('surname')
@@ -63,7 +63,7 @@
                                             <input id="phone" type="text"
                                                    class="form-control @error('phone') is-invalid @enderror"
                                                    name="phone"
-                                                   value="{{ $user->phone }}" required autocomplete="phone">
+                                                   value="{{ old('phone') }}" required autocomplete="phone">
 
                                             @error('phone')
                                             <span class="invalid-feedback" role="alert">
@@ -80,7 +80,7 @@
                                             <input id="email" type="email"
                                                    class="form-control @error('email') is-invalid @enderror"
                                                    name="email"
-                                                   value="{{ $user->email }}" required autocomplete="email">
+                                                   value="{{ old('email') }}" required autocomplete="email">
 
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -95,7 +95,7 @@
                                         <div class="col-md-6">
                                             <input id="birth_date" name="birth_date" type="date"
                                                    class="form-control @error('birth_date') is-invalid @enderror"
-                                                   value="{{ $user->birth_date }}" required autocomplete="birth_date">
+                                                   value="{{ old('birth_date') }}" required autocomplete="birth_date">
                                             @error('birth_date')
                                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -103,7 +103,33 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="password"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Пароль') }}</label>
 
+                                        <div class="col-md-6">
+                                            <input id="password" type="password"
+                                                   class="form-control @error('password') is-invalid @enderror"
+                                                   name="password"
+                                                   required autocomplete="new-password">
+
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="password-confirm"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password-confirm" type="password" class="form-control"
+                                                   name="password_confirmation" required autocomplete="new-password">
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row mb-0">
                                         <div class="col-md-6 offset-md-4">
@@ -113,6 +139,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="form-group col col-md-4 text-xl-left">
                                     <div class="form-group row">
                                         <h3>Роль пользователя</h3>
@@ -121,7 +148,7 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="role"
                                                            id="{{ $role->slug }}" value="{{ $role->slug }}"
-                                                           @if($role->slug==$user->role->slug) checked @endif>
+                                                           @if($role->slug=='user') checked @endif>
                                                     <label class="form-check-label" for=" {{ $role->slug }}">
                                                         {{ $role->name }}
                                                     </label>
@@ -136,7 +163,7 @@
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="status"
                                                            id="{{ $status->slug }}" value="{{ $status->slug }}"
-                                                           @if($status->slug==$user->status->slug) checked @endif>
+                                                           @if($status->slug=='waiting') checked @endif>
                                                     <label class="form-check-label" for="{{ $status->slug }}">
                                                         {{ $status->name }}
                                                     </label>
@@ -145,7 +172,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </form>
                     </div>

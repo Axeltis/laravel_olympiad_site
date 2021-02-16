@@ -25,13 +25,13 @@ class CreateUsersTable extends Migration
             $table->index('role_id');
 
             $table->string('name',16);
-            $table->string('middlename',16)->nullable();
+            $table->string('middlename',16);
             $table->string('surname',16);
             $table->string('phone',16)->unique();
             $table->string('email',50)->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->date('birth_date');
             $table->string('password',80);
-            $table->string('phone_calls_time',200)->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -60,6 +60,7 @@
         .dropdown-menu:hover {
             display: block;
         }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous">
     </script>
@@ -67,7 +68,7 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm flex-md-nowrap">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap" style="height: 30pt">
             <div class="container">
 
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -81,9 +82,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                   
+
                     <ul class="navbar-nav mr-auto">
-                       
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -103,11 +104,9 @@
                         @endif
                         @else
 
-                        
-
-
-
-
+                         <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.profile',['id'=>Auth::user()->id]) }}">{{ __('Мой профиль') }}</a>
+                         </li>
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -130,9 +129,23 @@
 
                     </ul>
                 </div>
+
             </div>
         </nav>
-
+        <ul class="nav nav-tabs justify-content-md-center" >
+            <li class="nav-item">
+                <a class="nav-link rounded" href="#"><h5>Об олимпиаде</h5></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link active rounded" href="#"><h5>Дисциплины</h5></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded" href="#"><h5>Результаты</h5></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link rounded" href="#" ><h5>Зал славы</h5></a>
+            </li>
+        </ul>
         <main class="py-4">
             @yield('content')
         </main>

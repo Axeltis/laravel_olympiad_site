@@ -8,7 +8,8 @@
                     <div class="card-header">{{ __('Список пользователей') }}</div>
                     <div class="card-body">
 
-                       <a href="{{ route('admin.edit_user') }}" class="btn btn-xs btn-info ">Создать пользователя</a>
+                        <a href="{{ route('admin.create_user_page') }}" class="btn btn-xs btn-info ">Создать
+                            пользователя</a>
                         <p>
                         <div class="row-md-12">
                             <table class="table">
@@ -33,13 +34,18 @@
                                         <td>{{ $user->role->name }}</td>
                                         <td>{{ $user->status->name }}</td>
                                         <td>
-                                            <!--<button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>-->
-                                            <a href="{{route('admin.edit_user',['id'=>$user->id])}}" type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                            <form action="{{ route('admin.delete_user',['id'=>$user->id]) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash "></i></button>
-                                            </form>
+                                            <div class="row">
+                                                <a href="{{route('user.profile',['id'=>$user->id])}}" type="button" class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                <a href="{{route('admin.edit_user_page',['id'=>$user->id])}}"
+                                                   type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                                <form action="{{ route('admin.delete_user',['id'=>$user->id]) }}"
+                                                      method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fa fa-trash "></i></button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

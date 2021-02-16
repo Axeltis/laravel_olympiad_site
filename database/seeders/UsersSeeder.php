@@ -28,15 +28,16 @@ class UsersSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'Em',
+                'middlename' =>'Et',
                 'surname' => 'All',
                 'role_id' => $role_id,
                 'status_id' => $status_id,
                 'phone' => '89278067545',
                 'email' => 'admin@example.com',
-                'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                //'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 'password' => bcrypt('admin'),
-                'phone_calls_time' => 'timetimetime',
 
+                'birth_date' => Carbon::now()->format('Y-m-d H:i:s'),
             ]
         );
 
@@ -48,15 +49,15 @@ class UsersSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'new',
+                'middlename'=>'nww',
                 'surname' => 'new',
                 'role_id' => $role_id,
                 'status_id' => $status_id,
                 'phone' => '89278467745',
                 'email' => 'new@new.com',
-                'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'password' => bcrypt('tqA9pQtY4cPJ8ZP'),
-                'phone_calls_time' => 'timetimetime',
-
+                // 'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'password' => bcrypt('new'),
+                'birth_date' => Carbon::now()->format('Y-m-d H:i:s'),
             ]
         );
 
@@ -68,14 +69,15 @@ class UsersSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'name' => 'new2',
+                'middlename'=>'nww2',
                 'surname' => 'new2',
                 'role_id' => $role_id,
                 'status_id' => $status_id,
                 'phone' => '89578056754',
                 'email' => 'new2@new.com',
-                'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
-                'password' => bcrypt('tqA9pQtY4cPJ8ZP'),
-                'phone_calls_time' => 'timetimetime',
+                // 'email_verified_at' => Carbon::now()->format('Y-m-d H:i:s'),
+                'password' => bcrypt('new2'),
+                'birth_date' => Carbon::now()->format('Y-m-d H:i:s'),
 
             ]
         );

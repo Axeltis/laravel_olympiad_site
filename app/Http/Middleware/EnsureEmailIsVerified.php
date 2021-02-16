@@ -13,6 +13,7 @@ class EnsureEmailIsVerified
 
     public function handle(Request $request, Closure $next)
     {
+
         if (is_null($request->user())||
             ($request->user()->status->slug=='waiting')) {
             return Redirect::guest(URL::route('verification.notice'));

@@ -56,6 +56,7 @@ class RegisterController extends Controller
             'phone' => ['required', 'string', 'max:16', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'birth_date' => ['required','date','date_format:Y-m-d']
         ]);
     }
 
@@ -67,6 +68,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data): User
     {
+
         $user = new User([
             'id' =>Str::uuid(),
             'name' => $data['name'],
@@ -74,7 +76,9 @@ class RegisterController extends Controller
             'middlename' => $data['middlename'],
             'phone' => $data['phone'],
             'email' => $data['email'],
+            'birth_date'=> $data['birth_date'],
             'password' => bcrypt($data['password']),
+
         ]);
         $role = Role::where('slug','user')->first();
         $status = UserStatus::where('slug','waiting')->first();
