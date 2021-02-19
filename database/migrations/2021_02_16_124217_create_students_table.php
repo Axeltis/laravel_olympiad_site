@@ -14,6 +14,7 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
+
             $table->uuid('user_id')->unique();
             $table->foreign('user_id')
                 ->references('id')
@@ -21,7 +22,7 @@ class CreateStudentsTable extends Migration
                 ->onDelete('cascade');
             $table->index('user_id');
             $table->string('college',70);
-            $table->string('specialty',70);
+            $table->string('speciality',70);
             $table->unsignedTinyInteger('course');
             $table->softDeletes();
             $table->timestamps();

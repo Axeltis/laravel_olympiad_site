@@ -4,14 +4,17 @@ namespace App\Models;
 
 use App\Http\Traits\UuidTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rule;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable,UuidTrait;
-
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -64,5 +67,48 @@ class User extends Authenticatable implements MustVerifyEmail
     public function moderations(): \Illuminate\Database\Eloquent\Relations\hasMany
     {
         return $this->hasMany(Moderation::class);
+    }
+    public function type(){
+        if($this->asStudent)
+            return 'student';
+        elseif($this->asTeacher)
+            return 'teacher';
+        elseif($this->asPupil)
+            return 'pupil';
+        else
+            return 'none';
+
+    }
+    public static function rules($id=null, $merge=[]): array
+    {
+        return array_merge([
+                'name' => ['required', 'string', 'max:60'],
+                'surname' => ['required', 'string', 'max:60'],
+                'middlename' => ['required', 'string', 'max:60'],
+                'phone'  => ['required', 'string', 'max:16',Rule::unique('users','phone')->ignore($id)],
+                'email'     => ['required', 'string', 'email', 'max:60',Rule::unique('users','email')->ignore($id)],
+                'birth_date' => ['required', 'date', 'date_format:Y-m-d']
+
+            ],
+            $merge);
+    }
+    public $type_label = [
+        'student'=>'Студент',
+            'teacher'=>'Преподаватель',
+        'pupil'=>'Школьник',
+        'none'=>'None'
+        ];
+
+    public function asStudent(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(Student::class, 'user_id');
+    }
+    public function asTeacher(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(Teacher::class,'user_id');
+    }
+    public function asPupil(): \Illuminate\Database\Eloquent\Relations\hasOne
+    {
+        return $this->hasOne(Pupil::class,'user_id');
     }
 }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pupil;
 use App\Models\Role;
+use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserStatus;
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -31,7 +31,7 @@ class AdminController extends Controller
                 break;
             case 'POST':
                 $this->create_validator($request->all())->validate();
-                $data = [
+                $user = new User([
                     'name' => $request['name'],
                     'surname' => $request['surname'],
                     'middlename' => $request['middlename'],
@@ -39,8 +39,7 @@ class AdminController extends Controller
                     'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
                     'password'=> $request['password'],
-                ];
-                $user = new User($data);
+                ]);
                 $role = Role::where('slug', $request['role'])->first();
                 $status = UserStatus::where('slug', $request['status'])->first();
 
@@ -48,6 +47,33 @@ class AdminController extends Controller
                 $user->status()->associate($status);
 
                 $user->save();
+                switch($request['type_select']) {
+                    case 'student':
+                        $student = new Student([
+                            'speciality' => $request['student_speciality'],
+                            'college' => $request['student_college'],
+                            'course' => $request['student_course']
+                        ]);
+                        $student->user()->associate($user);
+                        $student->save();
+                        break;
+                    case 'teacher':
+                        $teacher = new Teacher([
+                            'organization' => $request['teacher_organization'],
+                            'position' => $request['teacher_position'],
+                        ]);
+                        $teacher->user()->associate($user);
+                        $teacher->save();
+                        break;
+                    case 'pupil':
+                        $pupil = new Pupil([
+                            'organization' => $request['pupil_organization'],
+                            'class' => $request['pupil_class']
+                        ]);
+                        $pupil->user()->associate($user);
+                        $pupil->save();
+                        break;
+                }
                 return redirect(route('admin.home'));
                 break;
         }
@@ -64,23 +90,53 @@ class AdminController extends Controller
                 break;
             case 'POST':
                 $this->edit_validator($request->all())->validate();
+
                 $user = User::find($request['id']);
-                $data = [
+
+                $user->update([
                     'name' => $request['name'],
                     'surname' => $request['surname'],
                     'middlename' => $request['middlename'],
                     'phone' => $request['phone'],
                     'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
-                ];
-                $user->update($data);
+                ]);
                 $role = Role::where('slug', $request['role'])->first();
                 $status = UserStatus::where('slug', $request['status'])->first();
 
                 $user->role()->associate($role);
                 $user->status()->associate($status);
-
                 $user->save();
+
+                switch($request['type_select']) {
+                    case 'student':
+                        $student = new Student([
+                            'speciality' => $request['student_speciality'],
+                            'college' => $request['student_college'],
+                            'course' => $request['student_course']
+                        ]);
+                        $student->user()->associate($user);
+                        $student->save();
+                        break;
+                    case 'teacher':
+                        $teacher = new Teacher([
+                            'organization' => $request['teacher_organization'],
+                            'position' => $request['teacher_position'],
+                        ]);
+                        $teacher->user()->associate($user);
+                        $teacher->save();
+                        break;
+                    case 'pupil':
+                        $pupil = new Pupil([
+                            'organization' => $request['pupil_organization'],
+                            'class' => $request['pupil_class']
+                        ]);
+                        $pupil->user()->associate($user);
+                        $pupil->save();
+                        break;
+                    default:
+                        break;
+                }
                 return redirect(route('admin.home'));
                 break;
 
@@ -90,27 +146,41 @@ class AdminController extends Controller
 
     protected function create_validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:60'],
-            'surname' => ['required', 'string', 'max:60'],
-            'middlename' => ['string', 'max:60'],
-            'phone' => ['required', 'string', 'max:16'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'birth_date' => ['required', 'date', 'date_format:Y-m-d']
-        ]);
+        $type_validator=[
+            'student'=>Student::rules(),
+            'teacher'=>Teacher::rules(),
+            'pupil'=>Pupil::rules(),
+              'none'=>[]
+        ];
+
+
+        if(array_key_exists($data['type_select'], $type_validator) )
+            $validator = User::rules(null,$type_validator[$data['type_select']]);
+        else{
+            abort(500);
+        }
+
+        $validator['password'] = ['required', 'string', 'min:8', 'confirmed'];
+      
+        return Validator::make($data, $validator);
     }
 
     protected function edit_validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:60'],
-            'surname' => ['required', 'string', 'max:60'],
-            'middlename' => ['string', 'max:60'],
-            'phone' => ['required', 'string', 'max:16'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'birth_date' => ['required', 'date', 'date_format:Y-m-d']
-        ]);
+        $type_validator=[
+            'student'=>Student::rules(),
+            'teacher'=>Teacher::rules(),
+            'pupil'=>Pupil::rules(),
+            'none'=>[]
+        ];
+
+        if(array_key_exists($data['type_select'], $type_validator) )
+            $validator = User::rules($data['id'],$type_validator[$data['type_select']]);
+        else{
+            abort(500);
+        }
+
+        return Validator::make($data, $validator);
     }
 
     public function deleteUser($id)

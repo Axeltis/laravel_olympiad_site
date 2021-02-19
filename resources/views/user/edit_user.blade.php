@@ -8,9 +8,11 @@
                     <div class="card-header">{{ __('Регистрация') }}</div>
 
                     <div class="card-body">
-                        <form method="POST"  id="registerForm" action="{{ route('admin.edit_user',['id'=>$user->id]) }}">
+                        <form method="POST" id="registerForm"
+                              action="{{ route('user.edit_user',['id'=>$user->id]) }}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
+                            <input type="hidden" name="type" value="{{$user->type()}}">
                             <div class="form-group row">
                                 <div class="form-group col">
                                     <div class="form-group row">
@@ -107,41 +109,26 @@
                                     </div>
 
 
-
                                 </div>
 
                                 <div class="col-md-4">
                                     <div class="card bg-dark text-light border-light">
-                                        <div class="card-header">
-                                            <div class="row">
-                                                <label for="type_select"
-                                                       class="col-md-4 col-form-label text-md-right">{{ __('Тип участника') }}</label>
-                                                <div class="col-md-8">
-                                                    <select id="type_select" name="type_select" class="form-control">
-                                                        @foreach(array_keys($user->type_label) as $type)
-                                                        <option @if($user->type()==$type) selected @endif value="{{$type}}">{{$user->type_label[$type]}}</option>
-                                                        @endforeach
-                                                    </select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
                                         <div class="card-body">
                                             <div id="none">
                                             </div>
-                                            <div id="student">
+                                            @if($user->type()=='student')
                                                 <div class="form-group row">
-                                                    <label for="student_college"
+                                                    <label for="college"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Колледж') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="student_college" type="text"
-                                                               class="form-control @error('student_college') is-invalid @enderror"
-                                                               name="student_college"
-                                                               value="{{ (($user->asStudent)??'')->college??'' }}" required
+                                                        <input id="college" type="text"
+                                                               class="form-control @error('college') is-invalid @enderror"
+                                                               name="college"
+                                                               value="{{ (($user->asStudent)??'')->college??'' }}"
+                                                               required
                                                                autocomplete="college">
-                                                        @error('student_college')
+                                                        @error('college')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -150,17 +137,18 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="student_speciality"
+                                                    <label for="speciality"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Специальность') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="student_speciality" type="text"
-                                                               class="form-control @error('student_speciality') is-invalid @enderror"
-                                                               name="student_speciality"
-                                                               value="{{  (($user->asStudent)??'')->speciality??'' }}" required
-                                                               autocomplete="student_speciality">
+                                                        <input id="speciality" type="text"
+                                                               class="form-control @error('speciality') is-invalid @enderror"
+                                                               name="speciality"
+                                                               value="{{  (($user->asStudent)??'')->speciality??'' }}"
+                                                               required
+                                                               autocomplete="speciality">
 
-                                                        @error('student_speciality')
+                                                        @error('speciality')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -168,33 +156,36 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="student_course"
+                                                    <label for="course"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Курс') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <select id="student_course" name="student_course" class="form-control">
+                                                        <select id="course" name="course" class="form-control">
                                                             @for($i = 1; $i <= 4; $i++)
-                                                            <option @if((($user->asStudent)??'')->course??''==$i) selected @endif value="{{$i}}">
-                                                                {{$i}}</option>
+                                                                <option
+                                                                    @if((($user->asStudent)??'')->course??''==$i) selected
+                                                                    @endif value="{{$i}}">
+                                                                    {{$i}}</option>
                                                             @endfor
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
+                                            @if($user->type()=='teacher')
 
-                                            <div id="teacher">
                                                 <div class="form-group row">
-                                                    <label for="teacher_organization"
+                                                    <label for="teacher.organization"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="teacher_organization" type="text"
-                                                               class="form-control @error('teacher_organization') is-invalid @enderror"
-                                                               name="teacher_organization"
-                                                               value="{{ (($user->asTeacher)??'')->organization??'' }}" required
-                                                               autocomplete="teacher_organization">
+                                                        <input id="teacher.organization" type="text"
+                                                               class="form-control @error('organization') is-invalid @enderror"
+                                                               name="teacher.organization"
+                                                               value="{{ (($user->asTeacher)??'')->organization??'' }}"
+                                                               required
+                                                               autocomplete="teacher.organization">
 
-                                                        @error('teacher_organization')
+                                                        @error('organization')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -202,37 +193,39 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="teacher_position"
+                                                    <label for="teacher.position"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Должность') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="teacher_position" type="text"
-                                                               class="form-control @error('teacher_position') is-invalid @enderror"
-                                                               name="teacher_position"
-                                                               value="{{ (($user->asTeacher)??'')->position??''  }}" required
-                                                               autocomplete="teacher_position">
+                                                        <input id="teacher.position" type="text"
+                                                               class="form-control @error('position') is-invalid @enderror"
+                                                               name="teacher.position"
+                                                               value="{{ (($user->asTeacher)??'')->position??''  }}"
+                                                               required
+                                                               autocomplete="position">
 
-                                                        @error('teacher_position')
+                                                        @error('position')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                         @enderror
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div id="pupil">
+                                            @endif
+                                            @if($user->type()=='pupil')
                                                 <div class="form-group row">
-                                                    <label for="pupil_organization"
+                                                    <label for="organization"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="pupil_organization" type="text"
-                                                               class="form-control @error('pupil_organization') is-invalid @enderror"
-                                                               name="pupil_organization"
-                                                               value="{{ (($user->asPupil)??'')->organization??'' }}" required
-                                                               autocomplete="pupil_organization">
+                                                        <input id="organization" type="text"
+                                                               class="form-control @error('organization') is-invalid @enderror"
+                                                               name="organization"
+                                                               value="{{ (($user->asPupil)??'')->organization??'' }}"
+                                                               required
+                                                               autocomplete="organization">
 
-                                                        @error('pupil_organization')
+                                                        @error('organization')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -240,22 +233,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="pupil_class"
+                                                    <label for="class"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Класс') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <select id="pupil_class" name="pupil_class" class="form-control">
+                                                        <select id="class" name="class" class="form-control">
                                                             @for($i = 1; $i <= 11; $i++)
 
-                                                            <option @if((($user->asPupil)??'')->class??''==$i) selected @endif value="{{$i}}">
-                                                                {{$i}}
-                                                            </option>
+                                                                <option
+                                                                    @if((($user->asPupil)??'')->class??''==$i) selected
+                                                                    @endif value="{{$i}}">
+                                                                    {{$i}}
+                                                                </option>
 
                                                             @endfor
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endif
 
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-6 offset-md-4">
@@ -269,39 +264,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group col col-md-4 text-xl-left">
-                                    <div class="form-group row">
-                                        <h3>Роль пользователя</h3>
-                                        <div class="container">
-                                            @foreach($roles as $role)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="role"
-                                                           id="{{ $role->slug }}" value="{{ $role->slug }}"
-                                                           @if($role->slug==$user->role->slug) checked @endif>
-                                                    <label class="form-check-label" for=" {{ $role->slug }}">
-                                                        {{ $role->name }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <h3>Статус пользователя</h3>
-                                        <div class="container">
-                                            @foreach($statuses as $status)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="status"
-                                                           id="{{ $status->slug }}" value="{{ $status->slug }}"
-                                                           @if($status->slug==$user->status->slug) checked @endif>
-                                                    <label class="form-check-label" for="{{ $status->slug }}">
-                                                        {{ $status->name }}
-                                                    </label>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </form>
                     </div>
@@ -309,18 +271,4 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('#type_select').change(function () {
-                @foreach(array_keys($user->type_label) as $type)
-                $('#{{$type}}').hide();
-                @endforeach
-                $('#' + this.value).show();
-            });
-            @foreach(array_keys($user->type_label) as $type)
-            @if($type!=$user->type()) $('#{{$type}}').hide(); @endif
-            @endforeach
-
-        });
-    </script>
 @endsection

@@ -48,20 +48,25 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 Route::middleware('verified')->group(function () {
     Route::middleware(['access.route:admin'])->group(function () {
-        Route::get('/home/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
-        Route::get('/home/admin/edit_user_page/{id}', [App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.edit_user_page');
-        Route::post('/home/admin/edit_user/{id}', [App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.edit_user');
-        Route::get('/home/admin/create_user_page', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user_page');
-        Route::post('/home/admin/create_user', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user');
-        Route::delete('/home/admin/delete_user/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.delete_user');
+        Route::get('/admin/home', [App\Http\Controllers\AdminController::class, 'index'])->name('admin.home');
+        Route::get('/admin/home/edit_user_page/{id}', [App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.edit_user_page');
+        Route::post('/admin/home/edit_user/{id}', [App\Http\Controllers\AdminController::class, 'editUser'])->name('admin.edit_user');
+        Route::get('/admin/home/create_user_page', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user_page');
+        Route::post('/admin/home/create_user', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user');
+        Route::delete('/admin/home/delete_user/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.delete_user');
     });
     Route::middleware(['access.route:moderator'])->group(function () {
-        Route::get('/home/moderator', [App\Http\Controllers\ModeratorController::class, 'index'])->name('moderator.home');
+        Route::get('/moderator/home/', [App\Http\Controllers\ModeratorController::class, 'index'])->name('moderator.home');
+        Route::get('/user/profile/{id}', [App\Http\Controllers\ModeratorController::class, 'userProfile'])->name('user.profile');
     });
     Route::middleware(['access.route:user'])->group(function () {
-        Route::get('/home', [App\Http\Controllers\UserController::class, 'index'])->name('user.home');
+        Route::get('/user/home', [App\Http\Controllers\UserController::class, 'index'])->name('user.home');
+        Route::get('/user/profile/{id}/edit_page', [App\Http\Controllers\UserController::class, 'editUser'])->name('user.edit_user_page');
+        Route::post('/user/profile/{id}/edit', [App\Http\Controllers\UserController::class, 'editUser'])->name('user.edit_user');
+        Route::delete('/user/profile/{id}/delete', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('user.delete_user');
+
     });
-    Route::get('/profile/{id}', [App\Http\Controllers\UserController::class, 'userProfile'])->name('user.profile');
+    Route::get('/user/profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
 
 });
 
