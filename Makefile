@@ -14,7 +14,7 @@ endif
 project=-p ${COMPOSE_PROJECT_NAME}
 service=${COMPOSE_PROJECT_NAME}:latest
 
-deploy: build-no-cache env start composer-install key-generate config-cache
+deploy: build-no-cache env start composer-install key-generate config-cache storage-link
 
 env:
 	@cp ./.env.example ./.env
@@ -72,4 +72,5 @@ git:
 	@git add .
 	@git commit -m "$m"
 	@git push -u origin develop
-
+storage-link:
+	@make exec cmd="php artisan storage:link"

@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
-    use HasFactory;
-    protected $primaryKey = null;
+    use HasFactory,UuidTrait;
+    protected  $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'organization','position'
     ];
-    public static function rules($user_id=null, $merge=[]): array
+    public $type_name = 'teacher';
+    public $type_label = 'Преподаватель';
+    public static function rules( $merge=[]): array
     {
         return array_merge([
                 'teacher_organization' => ['required', 'string', 'max:70'],
@@ -22,18 +24,9 @@ class Teacher extends Model
         ],
             $merge);
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        self::creating(function ($model) {
-            Student::where('user_id',$model->user_id)->delete();
-            Teacher::where('user_id',$model->user_id)->delete();
-            Pupil::where('user_id',$model->user_id)->delete();
-        });
-    }
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->belongsTo(User::class);
+        return $this->morphOne(User::class,'type');
     }
 }

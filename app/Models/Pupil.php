@@ -9,13 +9,16 @@ use Illuminate\Validation\Rule;
 
 class Pupil extends Model
 {
-    use HasFactory;
-    protected $primaryKey = null;
+    use HasFactory,UuidTrait;
+    protected  $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'organization','class'
         ];
-    public static function rules($user_id=null, $merge=[]): array
+
+    public $type_name = 'pupil';
+    public $type_label= 'Школьник';
+    public static function rules($merge=[]): array
     {
         return array_merge([
             'pupil_organization' => ['required', 'string', 'max:70'],
@@ -23,18 +26,10 @@ class Pupil extends Model
         ],
             $merge);
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        self::creating(function ($model) {
-            Student::where('user_id',$model->user_id)->delete();
-            Teacher::where('user_id',$model->user_id)->delete();
-            Pupil::where('user_id',$model->user_id)->delete();
-        });
-    }
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function user(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->belongsTo(User::class);
+        return $this->morphOne(User::class,'type');
     }
+
 }

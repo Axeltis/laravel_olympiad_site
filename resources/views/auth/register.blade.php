@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
-                <div class="card bg-dark text-white ">
+                <div class="card bg-dark text-white border-green">
                     <div class="card-header"><h4>{{ __('Регистрация') }}</h4>
                     </div>
 
@@ -144,20 +144,19 @@
                                 </div>
 
                                 <div class="col">
-
                                     <div class="card bg-dark text-light border-light">
                                         <div class="card-header">
                                             <div class="row">
-                                            <label for="type_select"
-                                                   class="col-md-4 col-form-label text-md-right">{{ __('Тип участника') }}</label>
-                                            <div class="col-md-8">
-                                                <select id="type_select" name="type_select" class="form-control">
-                                                    <option selected value="student">Студент</option>
-                                                    <option value="pupil">Школьник</option>
-                                                    <option value="teacher">Преподаватель</option>
-                                                </select>
+                                                <label for="type_select"
+                                                       class="col-md-4 col-form-label text-md-right">{{ __('Тип участника') }}</label>
+                                                <div class="col-md-8">
+                                                    <select id="type_select" name="type_select" class="form-control">
+                                                        <option  selected value="student">Студент</option>
+                                                        <option value="pupil">Школьник</option>
+                                                        <option value="teacher">Преподаватель</option>
+                                                    </select>
 
-                                            </div>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -168,12 +167,12 @@
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Колледж') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="college" type="text"
-                                                               class="form-control @error('college') is-invalid @enderror"
-                                                               name="college"
-                                                               value="{{ old('college') }}" required
+                                                        <input id="student_college" type="text"
+                                                               class="form-control @error('student_college') is-invalid @enderror"
+                                                               name="student_college"
+                                                               value="{{ old('student_college') }}" required
                                                                autocomplete="college">
-                                                        @error('college')
+                                                        @error('student_college')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -182,17 +181,17 @@
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label for="speciality"
+                                                    <label for="student_speciality"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Специальность') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="speciality" type="text"
-                                                               class="form-control @error('speciality') is-invalid @enderror"
-                                                               name="speciality"
-                                                               value="{{ old('speciality') }}" required
-                                                               autocomplete="speciality">
+                                                        <input id="student_speciality" type="text"
+                                                               class="form-control @error('student_speciality') is-invalid @enderror"
+                                                               name="student_speciality"
+                                                               value="{{ old('student_speciality') }}" required
+                                                               autocomplete="student_speciality">
 
-                                                        @error('speciality')
+                                                        @error('student_speciality')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -200,11 +199,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="course"
+                                                    <label for="student_course"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Курс') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <select id="course" name="course" class="form-control">
+                                                        <select id="student_course" name="student_course" class="form-control">
                                                             <option selected value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -216,17 +215,17 @@
 
                                             <div id="teacher">
                                                 <div class="form-group row">
-                                                    <label for="organization"
+                                                    <label for="teacher_organization"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="organization" type="text"
-                                                               class="form-control @error('organization') is-invalid @enderror"
-                                                               name="organization"
-                                                               value="{{ old('organization') }}" required
-                                                               autocomplete="organization">
+                                                        <input id="teacher_organization" type="text"
+                                                               class="form-control @error('teacher_organization') is-invalid @enderror"
+                                                               name="teacher_organization"
+                                                               value="{{ old('teacher_organization') }}" required
+                                                               autocomplete="teacher_organization">
 
-                                                        @error('organization')
+                                                        @error('teacher_organization')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -234,17 +233,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="position"
+                                                    <label for="teacher_position"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Должность') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="position" type="text"
-                                                               class="form-control @error('position') is-invalid @enderror"
-                                                               name="position"
-                                                               value="{{ old('position') }}" required
-                                                               autocomplete="position">
+                                                        <input id="teacher_position" type="text"
+                                                               class="form-control @error('teacher_position') is-invalid @enderror"
+                                                               name="teacher_position"
+                                                               value="{{ old('teacher_position') }}" required
+                                                               autocomplete="teacher_position">
 
-                                                        @error('position')
+                                                        @error('teacher_position')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -254,17 +253,17 @@
                                             </div>
                                             <div id="pupil">
                                                 <div class="form-group row">
-                                                    <label for="organization"
+                                                    <label for="pupil_organization"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="organization" type="text"
+                                                        <input id="pupil_organization" type="text"
                                                                class="form-control @error('organization') is-invalid @enderror"
-                                                               name="organization"
-                                                               value="{{ old('organization') }}" required
-                                                               autocomplete="organization">
+                                                               name="pupil_organization"
+                                                               value="{{ old('pupil_organization') }}" required
+                                                               autocomplete="pupil_organization">
 
-                                                        @error('organization')
+                                                        @error('pupil_organization')
                                                         <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -272,11 +271,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="class"
+                                                    <label for="pupil_class"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Класс') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <select id="class" name="class" class="form-control">
+                                                        <select id="pupil_class" name="pupil_class" class="form-control">
                                                             <option value="1">1</option>
                                                             <option value="2">2</option>
                                                             <option value="3">3</option>
@@ -294,14 +293,15 @@
                                             </div>
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-6 offset-md-4">
-                                                    <button type="submit" class="btn btn-success rounded-pill align-middle" onclick="document.getElementById('registerForm').submit();">
+                                                    <button type="submit"
+                                                            class="btn btn-success rounded-pill align-middle"
+                                                            onclick="document.getElementById('registerForm').submit();">
                                                         {{ __('Зарегистрироваться') }}
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </form>

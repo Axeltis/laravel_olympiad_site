@@ -14,6 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+
             $table->uuid('id')->primary();
 
             $table->uuid('status_id');
@@ -23,6 +24,10 @@ class CreateUsersTable extends Migration
             $table->uuid('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->index('role_id');
+
+            $table->string('type_name',40)->nullable();
+            $table->uuid('type_id')->nullable();
+
 
             $table->string('name',16);
             $table->string('middlename',16);

@@ -4,7 +4,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
                 <div class="d-flex bd-highlight mb-3">
                     <div class="p-2 bd-highlight">
                         <div class="text-nowrap">
@@ -40,23 +39,13 @@
                         <tr><td class="active">Роль</td><td>{{$user->role->name}}</td></tr>
                         <tr><td class="active">Статус</td><td>{{$user->status->name}}</td></tr>
                         @endif
-
-                        @if($user->type()=='student')
-                            <tr><td class="active">Тип участника</td><td>Студент</td></tr>
-                            <tr><td class="active">Колледж</td><td>{{$user->asStudent->college}}</td></tr>
-                            <tr><td class="active">Специальность</td><td>{{$user->asStudent->speciality}}</td></tr>
-                            <tr><td class="active">Курс</td><td>{{$user->asStudent->course}}</td></tr>
-                        @elseif($user->type()=='teacher')
-                            <tr><td class="active">Тип участника</td><td>Учитель</td></tr>
-                            <tr><td class="active">Образовательная организация</td><td>{{$user->asTeacher->organization}}</td></tr>
-                            <tr><td class="active">Должность</td><td>{{$user->asTeacher->position}}</td></tr>
-                        @elseif($user->type()=='pupil')
-                            <tr><td class="active">Тип участника</td><td>Школьник</td></tr>
-                            <tr><td class="active">Образовательная организация</td><td>{{$user->asPupil->organization}}</td></tr>
-                            <tr><td class="active">Класс</td><td>{{$user->asPupil->class}}</td></tr>
-                        @else
-                        @endif
+                        @if($user->type)
+                        <tr><td class="active">Тип участника</td><td>{{$user->type->type_label}}</td></tr>
+                        @foreach(array_keys($user->type->viewables) as $viewable )
+                            <tr><td class="active">{{$user->type->viewables[$viewable]}}<td>{{$user->type[ $viewable]}}</td></tr>
+                        @endforeach
                         </tbody>
+                        @endif
 
                     </table>
                 </div>

@@ -3,16 +3,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-11">
+            <div class="col-md-7">
                 <div class="card bg-dark text-white ">
-                    <div class="card-header">{{ __('Регистрация') }}</div>
+                    <div class="card-header">{{ __('Изменение данных профиля') }}</div>
 
                     <div class="card-body">
                         <form method="POST" id="registerForm"
                               action="{{ route('user.edit_user',['id'=>$user->id]) }}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
-                            <input type="hidden" name="type" value="{{$user->type()}}">
+                            <input type="hidden" name="type" value="{{$user->type->type_name??'none'}}">
                             <div class="form-group row">
                                 <div class="form-group col">
                                     <div class="form-group row">
@@ -114,144 +114,22 @@
                                 <div class="col-md-4">
                                     <div class="card bg-dark text-light border-light">
                                         <div class="card-body">
-                                            <div id="none">
-                                            </div>
-                                            @if($user->type()=='student')
-                                                <div class="form-group row">
-                                                    <label for="college"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Колледж') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="college" type="text"
-                                                               class="form-control @error('college') is-invalid @enderror"
-                                                               name="college"
-                                                               value="{{ (($user->asStudent)??'')->college??'' }}"
-                                                               required
-                                                               autocomplete="college">
-                                                        @error('college')
-                                                        <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group row">
-                                                    <label for="speciality"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Специальность') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="speciality" type="text"
-                                                               class="form-control @error('speciality') is-invalid @enderror"
-                                                               name="speciality"
-                                                               value="{{  (($user->asStudent)??'')->speciality??'' }}"
-                                                               required
-                                                               autocomplete="speciality">
-
-                                                        @error('speciality')
-                                                        <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $message }}</strong>
-                                                        </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="course"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Курс') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <select id="course" name="course" class="form-control">
-                                                            @for($i = 1; $i <= 4; $i++)
-                                                                <option
-                                                                    @if((($user->asStudent)??'')->course??''==$i) selected
-                                                                    @endif value="{{$i}}">
-                                                                    {{$i}}</option>
-                                                            @endfor
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                            @if($user->type->type_name??''=='student')
+                                                @include('components.fields.user_text',['label'=>'Колледж','value' =>$user->type->college??'','field_name'=>'college','type_name'=>'student'])
+                                                @include('components.fields.user_text',['label'=>'Специальность','value' =>$user->type->speciality??'','field_name'=>'speciality','type_name'=>'student'])
+                                                @include('components.fields.user_num_select',['label'=>'','value' =>$user->type->course??'','field_name'=>'course','type_name'=>'student','max_num'=>4,'min_num'=>1])
                                             @endif
-                                            @if($user->type()=='teacher')
+                                            @if($user->type->type_name??''=='teacher')
 
-                                                <div class="form-group row">
-                                                    <label for="teacher.organization"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
-                                                    <div class="col-md-6">
-                                                        <input id="teacher.organization" type="text"
-                                                               class="form-control @error('organization') is-invalid @enderror"
-                                                               name="teacher.organization"
-                                                               value="{{ (($user->asTeacher)??'')->organization??'' }}"
-                                                               required
-                                                               autocomplete="teacher.organization">
-
-                                                        @error('organization')
-                                                        <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="teacher.position"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Должность') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <input id="teacher.position" type="text"
-                                                               class="form-control @error('position') is-invalid @enderror"
-                                                               name="teacher.position"
-                                                               value="{{ (($user->asTeacher)??'')->position??''  }}"
-                                                               required
-                                                               autocomplete="position">
-
-                                                        @error('position')
-                                                        <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
+                                                @include('components.fields.user_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'organization','type_name'=>'teacher'])
+                                                @include('components.fields.user_text',['label'=>'Должность','value' =>$user->type->position??'','field_name'=>'position','type_name'=>'teacher'])
                                             @endif
-                                            @if($user->type()=='pupil')
-                                                <div class="form-group row">
-                                                    <label for="organization"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
+                                            @if($user->type->type_name??''=='pupil')
+                                                @include('components.fields.user_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'organization','type_name'=>'pupil'])
+                                                @include('components.fields.user_num_select',['label'=>'Класс','value' =>$user->type->class??'','field_name'=>'class','type_name'=>'pupil','max_num'=>11,'min_num'=>1])
 
-                                                    <div class="col-md-6">
-                                                        <input id="organization" type="text"
-                                                               class="form-control @error('organization') is-invalid @enderror"
-                                                               name="organization"
-                                                               value="{{ (($user->asPupil)??'')->organization??'' }}"
-                                                               required
-                                                               autocomplete="organization">
-
-                                                        @error('organization')
-                                                        <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="class"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Класс') }}</label>
-
-                                                    <div class="col-md-6">
-                                                        <select id="class" name="class" class="form-control">
-                                                            @for($i = 1; $i <= 11; $i++)
-
-                                                                <option
-                                                                    @if((($user->asPupil)??'')->class??''==$i) selected
-                                                                    @endif value="{{$i}}">
-                                                                    {{$i}}
-                                                                </option>
-
-                                                            @endfor
-                                                        </select>
-                                                    </div>
-                                                </div>
                                             @endif
-
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-6 offset-md-4">
                                                     <button type="submit"

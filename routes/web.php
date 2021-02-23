@@ -54,6 +54,13 @@ Route::middleware('verified')->group(function () {
         Route::get('/admin/home/create_user_page', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user_page');
         Route::post('/admin/home/create_user', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user');
         Route::delete('/admin/home/delete_user/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.delete_user');
+        Route::get('/competition/competition_form/{id?}', [App\Http\Controllers\CompetitionsController::class, 'competitionForm'])->name('admin.competition_form');
+        Route::post('/competition/competition_form/save/{id?}', [App\Http\Controllers\CompetitionsController::class, 'save'])->name('admin.save_competition');
+        Route::delete('/competition/delete/{id}', [App\Http\Controllers\CompetitionsController::class, 'delete'])->name('admin.delete_competition');
+        Route::get('/competition/holding/{id}', [App\Http\Controllers\CompetitionsController::class, 'holdCompetitionForm'])->name('admin.hold_competition_form');
+        Route::post('/competition/{competition_id}/holding/save/{id?}', [App\Http\Controllers\CompetitionsController::class, 'holdCompetition'])->name('admin.hold_competition');
+        Route::delete('/competition/holding/delete/{id}', [App\Http\Controllers\CompetitionsController::class, 'deleteHolding'])->name('admin.delete_holding');
+
     });
     Route::middleware(['access.route:moderator'])->group(function () {
         Route::get('/moderator/home/', [App\Http\Controllers\ModeratorController::class, 'index'])->name('moderator.home');
@@ -67,6 +74,8 @@ Route::middleware('verified')->group(function () {
 
     });
     Route::get('/user/profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
+    Route::get('/competitions', [App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions');
+    Route::get('/competition/{id}', [App\Http\Controllers\CompetitionsController::class, 'competition'])->name('competition');
 
 });
 

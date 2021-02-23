@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-left">
         <div class="col-md-8">
-            <div class="card bg-dark text-white">
+            <div class="card bg-dark text-white border-green">
                 <div class="card-header">{{ __('Вход') }}</div>
 
                 <div class="card-body">

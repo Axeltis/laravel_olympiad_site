@@ -54,39 +54,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-        $user_validator=[
-            'name' => ['required', 'string', 'max:60'],
-            'surname' => ['required', 'string', 'max:60'],
-            'middlename' => ['required', 'string', 'max:60'],
-            'phone' => ['required', 'string', 'max:16', 'unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'birth_date' => ['required', 'date', 'date_format:Y-m-d']
-        ];
-        $student_validator= [
-            'college' => ['required', 'string', 'max:70'],
-            'speciality' => ['required', 'string', 'max:70'],
-            'course' => ['required', 'int', 'max:6', 'min:1'],
-        ];
-        $teacher_validator=[
-            'college' => ['required', 'string', 'max:70'],
-            'position' => ['required', 'string', 'max:70'],
-        ];
-        $pupil_validator =[
-            'organization' => ['required', 'string', 'max:70'],
-            'class' => ['required', 'int', 'max:11', 'min:1'],
-        ];
         $type_validator=[
-            'student'=>$student_validator,
-            'teacher'=>$teacher_validator,
-            'pupil'=>$pupil_validator
+            'student'=>Student::rules(),
+            'teacher'=>Teacher::rules(),
+            'pupil'=>Pupil::rules(),
+            'none'=>[]
         ];
-
-        if( array_key_exists($data['type_select'], $type_validator) )
-        $validator = array_merge($user_validator,$type_validator[$data['type_select']]);
+        if(array_key_exists($data['type_select'], $type_validator) )
+            $validator = User::rules(null,$type_validator[$data['type_select']]);
         else{
             abort(500);
         }
+
+        $validator['password'] = ['required', 'string', 'min:8', 'confirmed'];
+
         return Validator::make($data, $validator);
     }
 
@@ -111,37 +92,37 @@ class RegisterController extends Controller
         ]);
         $role = Role::where('slug', 'user')->first();
         $status = UserStatus::where('slug', 'waiting')->first();
+        $user->role()->associate($role);
+        $user->status()->associate($status);
+        $user->save();
 
-        switch ($data['type_select']) {
+
+        switch($data['type_select']) {
             case 'student':
                 $student = new Student([
-                    'speciality' => $data['speciality'],
-                    'college' => $data['college'],
-                    'course' => $data['course']
+                    'speciality' => $data['student_speciality'],
+                    'college' => $data['student_college'],
+                    'course' =>$data['student_course']
                 ]);
                 $student->user()->associate($user);
                 $student->save();
                 break;
             case 'teacher':
-
                 $teacher = new Teacher([
-                    'organization' => $data['organization'],
-                    'position' => $data['position'],
+                    'organization' => $data['teacher_organization'],
+                    'position' => $data['teacher_position'],
                 ]);
                 $teacher->user()->associate($user);
                 $teacher->save();
                 break;
             case 'pupil':
-
                 $pupil = new Pupil([
-                    'organization' => $data['organization'],
-                    'class' => $data['class']
+                    'organization' => $data['pupil_organization'],
+                    'class' =>$data['pupil_class']
                 ]);
                 $pupil->user()->associate($user);
                 $pupil->save();
                 break;
-
-
         }
 
 

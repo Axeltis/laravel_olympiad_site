@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competition;
 use App\Models\Pupil;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserStatus;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,10 +17,13 @@ class AdminController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return view('admin.home', ['users' => $users]);
+
+        $users = User::where('id',"!=",$request->user()->id)->get();
+
+        $competitions = Competition::all();
+        return view('admin.home', ['users' => $users,'competitions'=>$competitions]);
     }
 
     public function createUser(Request $request)
@@ -38,7 +43,7 @@ class AdminController extends Controller
                     'phone' => $request['phone'],
                     'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
-                    'password'=> $request['password'],
+                    'password'=> bcrypt($request['password']),
                 ]);
                 $role = Role::where('slug', $request['role'])->first();
                 $status = UserStatus::where('slug', $request['status'])->first();
@@ -46,34 +51,39 @@ class AdminController extends Controller
                 $user->role()->associate($role);
                 $user->status()->associate($status);
 
-                $user->save();
+
+                if($request['status']=='waiting') {
+                    event(new Registered($user));
+                }
                 switch($request['type_select']) {
                     case 'student':
                         $student = new Student([
                             'speciality' => $request['student_speciality'],
                             'college' => $request['student_college'],
                             'course' => $request['student_course']
+
                         ]);
-                        $student->user()->associate($user);
                         $student->save();
+                        $user->type()->associate($student);
                         break;
                     case 'teacher':
                         $teacher = new Teacher([
                             'organization' => $request['teacher_organization'],
                             'position' => $request['teacher_position'],
                         ]);
-                        $teacher->user()->associate($user);
                         $teacher->save();
+                        $user->type()->associate($teacher);
                         break;
                     case 'pupil':
                         $pupil = new Pupil([
                             'organization' => $request['pupil_organization'],
                             'class' => $request['pupil_class']
                         ]);
-                        $pupil->user()->associate($user);
                         $pupil->save();
+                        $user->type()->associate($pupil);
                         break;
                 }
+                $user->save();
                 return redirect(route('admin.home'));
                 break;
         }
@@ -106,37 +116,36 @@ class AdminController extends Controller
 
                 $user->role()->associate($role);
                 $user->status()->associate($status);
-                $user->save();
-
+                if($user->type) $user->type->delete();
                 switch($request['type_select']) {
                     case 'student':
                         $student = new Student([
                             'speciality' => $request['student_speciality'],
                             'college' => $request['student_college'],
                             'course' => $request['student_course']
+
                         ]);
-                        $student->user()->associate($user);
                         $student->save();
+                        $user->type()->associate($student);
                         break;
                     case 'teacher':
                         $teacher = new Teacher([
                             'organization' => $request['teacher_organization'],
                             'position' => $request['teacher_position'],
                         ]);
-                        $teacher->user()->associate($user);
                         $teacher->save();
+                        $user->type()->associate($teacher);
                         break;
                     case 'pupil':
                         $pupil = new Pupil([
                             'organization' => $request['pupil_organization'],
                             'class' => $request['pupil_class']
                         ]);
-                        $pupil->user()->associate($user);
                         $pupil->save();
-                        break;
-                    default:
+                        $user->type()->associate($pupil);
                         break;
                 }
+                $user->save();
                 return redirect(route('admin.home'));
                 break;
 
@@ -161,7 +170,7 @@ class AdminController extends Controller
         }
 
         $validator['password'] = ['required', 'string', 'min:8', 'confirmed'];
-      
+
         return Validator::make($data, $validator);
     }
 

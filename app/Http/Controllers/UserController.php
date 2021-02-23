@@ -15,6 +15,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
+
         return view('user.home');
     }
 
@@ -64,23 +65,26 @@ class UserController extends Controller
 
                 switch ($user->type()) {
                     case 'student':
-                        $user->asStudent->update([
-                            'speciality' => $request['speciality'],
-                            'college' => $request['college'],
-                            'course' => $request['course']
+                        $user->type->update([
+                            'speciality' => $request['student_speciality'],
+                            'college' => $request['student_college'],
+                            'course' => $request['student_course']
                         ]);
+                        $user->type->save();
                         break;
                     case 'teacher':
-                        $user->asTeacher->update([
-                            'organization' => $request['organization'],
-                            'position' => $request['position'],
+                        $user->type->update([
+                            'organization' => $request['teacher_organization'],
+                            'position' => $request['teacher_position'],
                         ]);
+                        $user->type->save();
                         break;
                     case 'pupil':
-                        $user->asPupil->update([
-                            'organization' => $request['organization'],
-                            'class' => $request['class']
+                        $user->type->update([
+                            'organization' => $request['pupil_organization'],
+                            'class' => $request['pupil_class']
                         ]);
+                        $user->type->save();
                         break;
                     default:
                         break;

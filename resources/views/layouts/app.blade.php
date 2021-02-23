@@ -11,8 +11,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" crossorigin="anonymous">-->
     <!-- Scripts -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -21,6 +26,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
+        .border-green{
+            border: medium double #457f57;
+        }
+
         dl,
         ol,
         ul {
@@ -74,19 +83,20 @@
 </head>
 
 <body>
+
 <div id="app">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap rounded-pill"
-         style="height: 40pt;">
-        <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap rounded-pill border-green "
+         style="height: 40pt; ">
+        <div class="container  ">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a>
-                <div class="btn-group">
+                <div class="btn-group" >
 
-                    <a type="button" class="btn btn-secondary" autocomplete="off" checked> Об олимпиаде</a>
+                    <a type="button" class="btn btn-secondary" autocomplete="off" checked> О конкурсе</a>
+                    <a type="button" class="btn btn-secondary" autocomplete="off" checked> Расписание</a>
 
-
-                    <a type="button" class="btn btn-secondary" autocomplete="off">Направления</a>
+                    <a type="button" href="{{route('competitions')}}" class="btn btn-secondary" autocomplete="off">Направления</a>
 
 
                     <a type="button" class="btn btn-secondary" autocomplete="off">Результаты</a>
@@ -94,19 +104,23 @@
 
                     <a type="button" class="btn btn-secondary" autocomplete="off">Зал славы</a>
 
-                    @if(Auth::check())
+
                         <a type="button"
+                           @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                            class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
                            href="{{ route(Auth::user()->role->slug.'.home')}}"
+                           @endif
                             autocomplete="off">{{ __('Личный кабинет') }}</a>
                         <a type="button"
-                           class="btn @if(\Route::current()->getName() == 'user.profile') btn-success @else btn-secondary @endif"
+                           @if(!Auth::check())   class="btn  btn-secondary disabled"   @else
+                           class="btn @if(Request::url()== route('user.profile',['id'=>Auth::user()->id])) btn-success @else btn-secondary @endif"
                            href="{{ route('user.profile',['id'=>Auth::user()->id])}}"
+                           @endif
                           autocomplete="off">{{ __('Профиль') }}</a>
-                    @endif
+
                 </div>
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul  class="navbar-nav ml-auto  ">
                     <!-- Authentication Links -->
                     @guest
                         <div class="btn-group btn-group-toggle " data-toggle="buttons">

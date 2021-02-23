@@ -8,13 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    use HasFactory;
-    protected $primaryKey = null;
+    use HasFactory,UuidTrait;
+    protected  $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
         'college','speciality','course'
     ];
-    public static function rules($user_id=null, $merge=[]): array
+    public $type_name = 'student';
+    public $type_label= 'Студент';
+    public $viewables = [
+            'college'=>'Колледж',
+            'speciality'=>'Специальность',
+            'course'=>'Курс'
+        ];
+
+    public static function rules($merge=[]): array
     {
         return array_merge([
             'student_college' => ['required', 'string', 'max:70'],
@@ -23,19 +31,11 @@ class Student extends Model
         ],
             $merge);
     }
-    public static function boot()
-    {
-        parent::boot();
 
-        self::creating(function ($model) {
-            Student::where('user_id',$model->user_id)->delete();
-            Teacher::where('user_id',$model->user_id)->delete();
-            Pupil::where('user_id',$model->user_id)->delete();
-        });
-    }
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+
+    public function user(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->morphOne(User::class,'type');
     }
 
 }
