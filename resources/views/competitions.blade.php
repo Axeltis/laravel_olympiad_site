@@ -29,7 +29,11 @@
 
                             <div class="card-body">
                                 <p class="card-text mb-auto" >{!!$competition->description!!}</p>
-                                <a href="{{route('competition',['id'=>$competition->id])}}"  type="button" class="btn btn-success rounded-pill" href="#"><i class="fa fa-eye"></i> Continue reading</a>
+                                                 <div class="d-flex bd-highlight mb-3">
+                                    <div class="bd-highlight"> <a href="{{route('competition',['id'=>$competition->id])}}"  type="button" class="btn btn-success rounded-pill" href="#"><i class="fa fa-eye"></i> Информация по направлению</a>
+                                    </div>
+                                    <div class="ml-auto bd-highlight"><h5>{{$competition->status()['label'].': c '.$competition->holdings()->latest()->first()->start_date.' по '.$competition->holdings()->latest()->first()->end_date}}</h5></div>
+                                </div>
                             </div>
 
                     </div>

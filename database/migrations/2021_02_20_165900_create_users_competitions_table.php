@@ -25,8 +25,8 @@ class CreateUsersCompetitionsTable extends Migration
                 ->on('holding_competitions')
                 ->onDelete('cascade');
             $table->index('holding_competition_id');
-            $table->smallInteger('points')->unsigned()->nullable();
-
+            $table->boolean('file_attached')->default(false);
+            $table->smallInteger('points')->unsigned()->default(0);
         });
     }
 

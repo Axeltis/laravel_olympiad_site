@@ -55,7 +55,11 @@ Route::middleware('verified')->group(function () {
         Route::post('/admin/home/create_user', [App\Http\Controllers\AdminController::class, 'createUser'])->name('admin.create_user');
         Route::delete('/admin/home/delete_user/{id}', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('admin.delete_user');
         Route::get('/competition/competition_form/{id?}', [App\Http\Controllers\CompetitionsController::class, 'competitionForm'])->name('admin.competition_form');
-        Route::post('/competition/competition_form/save/{id?}', [App\Http\Controllers\CompetitionsController::class, 'save'])->name('admin.save_competition');
+        Route::get('/competition/competition_description_form/{id}', [App\Http\Controllers\CompetitionsController::class, 'competitionDescriptionForm'])->name('admin.competition_description_form');
+        Route::get('/competition/competition_materials_form/{id}', [App\Http\Controllers\CompetitionsController::class, 'competitionMaterialsForm'])->name('admin.competition_materials_form');
+
+        Route::post('/competition/competition_form/{page}/save/{id?}', [App\Http\Controllers\CompetitionsController::class, 'save'])->name('admin.save_competition');
+
         Route::delete('/competition/delete/{id}', [App\Http\Controllers\CompetitionsController::class, 'delete'])->name('admin.delete_competition');
         Route::get('/competition/holding/{id}', [App\Http\Controllers\CompetitionsController::class, 'holdCompetitionForm'])->name('admin.hold_competition_form');
         Route::post('/competition/{competition_id}/holding/save/{id?}', [App\Http\Controllers\CompetitionsController::class, 'holdCompetition'])->name('admin.hold_competition');

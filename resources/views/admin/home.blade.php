@@ -22,7 +22,7 @@
 
                             </div>
                             <p>
-                            <table id="users_table" class="table  bg-light text-dark">
+                            <table class="table  bg-light text-dark">
                                 <thead class="bg-dark text-light">
                                 <tr>
                                     <th scope="col">№</th>
@@ -35,7 +35,7 @@
                                     <th scope="col">Действия</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="users_table" >
                                 @foreach($users as $key => $user)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
@@ -96,6 +96,7 @@
                                 else tr[i].style.display = "none";
                                 show = false;
                             }
+
                         }
                     </script>
                 </div>
@@ -122,9 +123,7 @@
 
                             </div>
                             <p>
-                            <table id="competitions_table" class="table  bg-light text-dark">
-
-                                <tbody>
+                            <table  class="table  bg-light text-dark">
                                 <thead class="bg-dark text-light">
                                 <tr>
                                     <th scope="col">№</th>
@@ -134,11 +133,13 @@
                                     <th scope="col">Действия</th>
                                 </tr>
                                 </thead>
+                                <tbody id="competitions_table">
+
                                 @foreach($competitions as $key =>$competition)
                                     <tr>
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $competition->name }}</td>
-                                        <td>@if($competition->status())Active @else Not active @endif</td>
+                                        <td>{{$competition->status()['label']}}</td>
                                         <td>{{App\Models\User::types()["path"][$competition->user_type]}}</td>
                                         <td>
                                             <div class="row">
@@ -197,6 +198,9 @@
                                 else tr[i].style.display = "none";
                                 show = false;
                             }
+
+
+
                         }
                     </script>
                 </div>

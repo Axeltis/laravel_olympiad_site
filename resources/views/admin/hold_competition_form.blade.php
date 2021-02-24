@@ -20,9 +20,8 @@
 
                         </div>
                         <p>
-                        <table id="holdings_table" class="table  bg-light text-dark">
+                        <table  class="table  bg-light text-dark">
 
-                            <tbody>
                             <thead class="bg-dark text-light">
                             <tr>
                                 <th class="d-none" scope="col">id</th>
@@ -33,6 +32,7 @@
                                 <th scope="col">Действия</th>
                             </tr>
                             </thead>
+                            <tbody id="holdings_table">
                             @foreach($competition->holdings as $key =>$holding)
                                 <tr>
                                     <td class="d-none">{{$holding->id}}</td>
@@ -128,7 +128,7 @@
                                 var end_date_value = '';
                                 var id_value = '';
                                 table = document.getElementById("holdings_table");
-                                tr = table.getElementsByTagName("tr")[row_num + 1];
+                                tr = table.getElementsByTagName("tr")[row_num];
 
                                 td = tr.getElementsByTagName("td");
 

@@ -10,7 +10,8 @@ services:
       restart: unless-stopped
       volumes:
         - ./:/var/www
-        - ./containers/php:/usr/local/etc/php/custom.d
+        - ./containers/php/conf.d:/usr/local/etc/php/custom.d
+        - ./containers/php/pool.d:/usr/local/etc/php/pool.d
       environment:
         PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
       networks:

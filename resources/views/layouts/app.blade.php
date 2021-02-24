@@ -17,7 +17,6 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
 
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -26,7 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
-        .border-green{
+        .border-green {
             border: medium double #457f57;
         }
 
@@ -74,9 +73,10 @@
             margin: 20px !important;
             padding: 20px !important;
         }
-.bg-dark-green{
-    background-color: seagreen;
-}
+
+        .bg-dark-green {
+            background-color: seagreen;
+        }
     </style>
 
 
@@ -91,36 +91,29 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a>
-                <div class="btn-group" >
-
+                <div class="btn-group">
                     <a type="button" class="btn btn-secondary" autocomplete="off" checked> О конкурсе</a>
                     <a type="button" class="btn btn-secondary" autocomplete="off" checked> Расписание</a>
-
-                    <a type="button" href="{{route('competitions')}}" class="btn btn-secondary" autocomplete="off">Направления</a>
-
-
+                    <a type="button" href="{{route('competitions')}}"
+                       class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif"
+                       autocomplete="off">Направления</a>
                     <a type="button" class="btn btn-secondary" autocomplete="off">Результаты</a>
-
-
                     <a type="button" class="btn btn-secondary" autocomplete="off">Зал славы</a>
-
-
-                        <a type="button"
-                           @if(!Auth::check())   class="btn  btn-secondary disabled" @else
-                           class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
-                           href="{{ route(Auth::user()->role->slug.'.home')}}"
-                           @endif
-                            autocomplete="off">{{ __('Личный кабинет') }}</a>
-                        <a type="button"
-                           @if(!Auth::check())   class="btn  btn-secondary disabled"   @else
-                           class="btn @if(Request::url()== route('user.profile',['id'=>Auth::user()->id])) btn-success @else btn-secondary @endif"
-                           href="{{ route('user.profile',['id'=>Auth::user()->id])}}"
-                           @endif
-                          autocomplete="off">{{ __('Профиль') }}</a>
-
+                    <a type="button"
+                       @if(!Auth::check())   class="btn  btn-secondary disabled" @else
+                       class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
+                       href="{{ route(Auth::user()->role->slug.'.home')}}"
+                       @endif
+                       autocomplete="off">{{ __('Личный кабинет') }}</a>
+                    <a type="button"
+                       @if(!Auth::check())   class="btn  btn-secondary disabled" @else
+                       class="btn @if(Request::url()== route('user.profile',['id'=>Auth::user()->id])) btn-success @else btn-secondary @endif"
+                       href="{{ route('user.profile',['id'=>Auth::user()->id])}}"
+                       @endif
+                       autocomplete="off">{{ __('Профиль') }}</a>
                 </div>
                 <!-- Right Side Of Navbar -->
-                <ul  class="navbar-nav ml-auto  ">
+                <ul class="navbar-nav ml-auto  ">
                     <!-- Authentication Links -->
                     @guest
                         <div class="btn-group btn-group-toggle " data-toggle="buttons">
@@ -128,7 +121,8 @@
                                 <a class="btn btn-light border-dark" href="{{ route('login') }}">{{ __('Вход') }}</a>
                             @endif
                             @if (Route::has('register'))
-                                <a class="btn btn-light border-dark" href="{{ route('register') }}">{{ __('Регистрация') }}</a>
+                                <a class="btn btn-light border-dark"
+                                   href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                             @endif
                         </div>
                     @else

@@ -26,11 +26,10 @@ class Competition extends Model
     public static function rules($merge = []): array
     {
         return array_merge([
-            'id' => ['uuid', 'unique'],
             'name' => ['required', 'string', 'max:100'],
             'user_type' => ['required', 'string', 'max:40'],
-            'description' => ['required', 'string', 'max:3000'],
-            'teaching_materials' => ['required', 'string', 'max:3000'],
+            'description' => ['required', 'string', 'max:8000'],
+            'teaching_materials' => ['required', 'string', 'max:8000'],
             'max_points' => ['required', 'int', 'min:0'],
             'video' => ['file', 'mimes:avi,mp4,mov,ogg,qt,ogx,oga,ogv,webm']
         ],
@@ -42,10 +41,38 @@ class Competition extends Model
         return $this->HasMany(HoldingCompetition::class);
     }
 
-    public function status(): bool
+    public function status(): array
     {
         $holding = $this->holdings()->latest()->first();
         $current_date = Carbon::now()->toDateString();
-        return ($holding->start_date <= $current_date and $holding->end_date >= $current_date);
+        $status_array = [
+            'will_hold' => [
+                'slug' => 'will_hold',
+                'label' => 'Будет проведен',
+                ],
+            'holding' => [
+                'slug' => 'holding',
+                'label' => 'Проводится',
+                ],
+            'was_held' => [
+                'slug' => 'was_held',
+                'label' => 'Было проведено',
+                ],
+            'not_hold'=> [
+                'slug' => 'not_hold',
+                'label' => 'Не проводилось',
+            ],
+        ];
+        if($holding) {
+            if ($holding->start_date > $current_date) {
+                return $status_array['will_hold'];
+            } else if ($holding->end_date < $current_date) {
+                return $status_array['was_held'];
+            } else {
+                return $status_array['holding'];
+            }
+        }else{
+            return $status_array['not_hold'];
+        }
     }
 }
