@@ -19,7 +19,6 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-
         $users = User::where('id',"!=",$request->user()->id)->get();
 
         $competitions = Competition::all();

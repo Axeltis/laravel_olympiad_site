@@ -9,16 +9,19 @@ use Illuminate\Validation\Rule;
 
 class Pupil extends Model
 {
-    use HasFactory,UuidTrait;
-    protected  $primaryKey = 'id';
+    use HasFactory, UuidTrait;
+
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
-        'organization','class'
-        ];
+        'organization', 'class'
+    ];
 
-    public $type_name = 'pupil';
-    public $type_label= 'Школьник';
-    public static function rules($merge=[]): array
+    public const slug = 'pupil';
+    public const label = 'Школьник';
+    public const path = 'App\\Models\\Pupil';
+
+    public static function rules($merge = []): array
     {
         return array_merge([
             'pupil_organization' => ['required', 'string', 'max:70'],
@@ -29,7 +32,7 @@ class Pupil extends Model
 
     public function user(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->morphOne(User::class,'type');
+        return $this->morphOne(User::class, 'type');
     }
 
 }

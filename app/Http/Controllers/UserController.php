@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Competition;
 use App\Models\Pupil;
 use App\Models\Role;
 use App\Models\Student;
@@ -99,6 +100,17 @@ class UserController extends Controller
 
             return redirect(route('admin.home'));
         }
+    public function joinCompetition(Request $request, $id): \Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
+        $competition = Competition::find($id);
+
+        if($user->type_name==$competition->user_type) {
+            $user->competitions()->attach($competition->current_holding);
+        }
+
+        return redirect(route($user->role->slug.'.home'));
+    }
 
 
 }

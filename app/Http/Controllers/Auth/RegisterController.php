@@ -94,37 +94,35 @@ class RegisterController extends Controller
         $status = UserStatus::where('slug', 'waiting')->first();
         $user->role()->associate($role);
         $user->status()->associate($status);
-        $user->save();
-
-
         switch($data['type_select']) {
             case 'student':
                 $student = new Student([
                     'speciality' => $data['student_speciality'],
                     'college' => $data['student_college'],
-                    'course' =>$data['student_course']
+                    'course' => $data['student_course']
+
                 ]);
-                $student->user()->associate($user);
                 $student->save();
+                $user->type()->associate($student);
                 break;
             case 'teacher':
                 $teacher = new Teacher([
                     'organization' => $data['teacher_organization'],
                     'position' => $data['teacher_position'],
                 ]);
-                $teacher->user()->associate($user);
                 $teacher->save();
+                $user->type()->associate($teacher);
                 break;
             case 'pupil':
                 $pupil = new Pupil([
                     'organization' => $data['pupil_organization'],
-                    'class' =>$data['pupil_class']
+                    'class' => $data['pupil_class']
                 ]);
-                $pupil->user()->associate($user);
                 $pupil->save();
+                $user->type()->associate($pupil);
                 break;
         }
-
+        $user->save();
 
         return $user;
     }

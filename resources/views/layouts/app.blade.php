@@ -92,25 +92,27 @@
                 <!-- Left Side Of Navbar -->
                 <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a>
                 <div class="btn-group">
-                    <a type="button" class="btn btn-secondary" autocomplete="off" checked> О конкурсе</a>
-                    <a type="button" class="btn btn-secondary" autocomplete="off" checked> Расписание</a>
+                    <a type="button"  href="{{route('about')}}" class="btn  @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
+                    <a type="button" href="{{ route('competitions.schedule') }}"
+                       class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-success @else btn-secondary @endif"
+                       autocomplete="off"> Расписание</a>
                     <a type="button" href="{{route('competitions')}}"
                        class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif"
-                       autocomplete="off">Направления</a>
-                    <a type="button" class="btn btn-secondary" autocomplete="off">Результаты</a>
-                    <a type="button" class="btn btn-secondary" autocomplete="off">Зал славы</a>
+                    >Направления</a>
+                    <a type="button" class="btn btn-secondary">Результаты</a>
+                    <a type="button" class="btn btn-secondary">Зал славы</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                        class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
                        href="{{ route(Auth::user()->role->slug.'.home')}}"
-                       @endif
-                       autocomplete="off">{{ __('Личный кабинет') }}</a>
+                        @endif
+                    >{{ __('Личный кабинет') }}</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                        class="btn @if(Request::url()== route('user.profile',['id'=>Auth::user()->id])) btn-success @else btn-secondary @endif"
                        href="{{ route('user.profile',['id'=>Auth::user()->id])}}"
-                       @endif
-                       autocomplete="off">{{ __('Профиль') }}</a>
+                        @endif
+                    >{{ __('Профиль') }}</a>
                 </div>
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto  ">

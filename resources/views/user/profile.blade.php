@@ -40,7 +40,7 @@
                         <tr><td class="active">Статус</td><td>{{$user->status->name}}</td></tr>
                         @endif
                         @if($user->type)
-                        <tr><td class="active">Тип участника</td><td>{{$user->type->type_label}}</td></tr>
+                        <tr><td class="active">Тип участника</td><td>{{App\Models\User::types_label[$user->type_name]}}</td></tr>
                         @foreach(array_keys($user->type->viewables) as $viewable )
                             <tr><td class="active">{{$user->type->viewables[$viewable]}}<td>{{$user->type[ $viewable]}}</td></tr>
                         @endforeach

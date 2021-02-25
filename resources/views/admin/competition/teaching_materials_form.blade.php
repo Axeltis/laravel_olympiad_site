@@ -10,7 +10,7 @@
 
 
                     <div class="card-header">
-                        Описание направления
+                      Обучающие материалы
                     </div>
                     <div class="card-body">
                         <form method="POST"

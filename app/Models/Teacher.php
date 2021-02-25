@@ -8,25 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
-    use HasFactory,UuidTrait;
-    protected  $primaryKey = 'id';
+    use HasFactory, UuidTrait;
+
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $fillable = [
-        'organization','position'
+        'organization', 'position'
     ];
-    public $type_name = 'teacher';
-    public $type_label = 'Преподаватель';
-    public static function rules( $merge=[]): array
+    public const slug = 'teacher';
+    public const  label = 'Преподаватель';
+    public const path = 'App\\Models\\Teacher';
+
+    public static function rules($merge = []): array
     {
         return array_merge([
-                'teacher_organization' => ['required', 'string', 'max:70'],
-                'teacher_position' => ['required', 'string', 'max:70'],
+            'teacher_organization' => ['required', 'string', 'max:70'],
+            'teacher_position' => ['required', 'string', 'max:70'],
         ],
             $merge);
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\MorphOne
     {
-        return $this->morphOne(User::class,'type');
+        return $this->morphOne(User::class, 'type');
     }
 }

@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
+})->name('welcome');
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
 Auth::routes(['verify' => true]);
 
 Route::get('/email/verify', function () {
@@ -75,12 +77,15 @@ Route::middleware('verified')->group(function () {
         Route::get('/user/profile/{id}/edit_page', [App\Http\Controllers\UserController::class, 'editUser'])->name('user.edit_user_page');
         Route::post('/user/profile/{id}/edit', [App\Http\Controllers\UserController::class, 'editUser'])->name('user.edit_user');
         Route::delete('/user/profile/{id}/delete', [App\Http\Controllers\AdminController::class, 'deleteUser'])->name('user.delete_user');
+        Route::post('/user/join/competition/{id}', [App\Http\Controllers\UserController::class, 'joinCompetition'])->name('user.join_competition');
 
     });
     Route::get('/user/profile/{id}', [App\Http\Controllers\UserController::class, 'profile'])->name('user.profile');
-    Route::get('/competitions', [App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions');
-    Route::get('/competition/{id}', [App\Http\Controllers\CompetitionsController::class, 'competition'])->name('competition');
+
 
 });
+Route::get('/competitions', [App\Http\Controllers\CompetitionsController::class, 'index'])->name('competitions');
+Route::get('/competition/{id}', [App\Http\Controllers\CompetitionsController::class, 'competition'])->name('competition');
+Route::get('/competitions/schedule', [App\Http\Controllers\CompetitionsController::class, 'schedule'])->name('competitions.schedule');
 
 

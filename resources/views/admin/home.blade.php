@@ -5,7 +5,7 @@
         <div class="row justify-content-left">
             <div class="col-md-12">
                 <div class="card bg-dark text-light  border-green">
-                    <div class="card-header">{{ __('Список пользователей') }}</div>
+                    <div class="card-header"><h4>{{ __('Список пользователей') }}</h4></div>
                     <div class="card-body">
 
                         <div class="row-md-12">
@@ -44,21 +44,21 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role->name }}</td>
                                         <td>{{ $user->status->name }}</td>
-                                        <td>{{($user->type??'')->type_label??'None'}}</td>
+                                        <td>{{App\Models\User::types_label[$user->type_name]}}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="btn-group">
-                                                    <a href="{{route('user.profile',['id'=>$user->id])}}" type="button"
+                                                    <a href="{{route('user.profile',['id'=>$user->id ])}}" type="button"
                                                        class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('admin.edit_user_page',['id'=>$user->id])}}"
+                                                    <a href="{{route('admin.edit_user_page',['id'=>$user->id ])}}"
                                                        type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="document.getElementById('deleteForm').submit();"
+                                                    <a onclick="document.getElementById('delete({{$user->id}})').submit();"
                                                        class="btn btn-danger"><i
                                                             class="fa fa-trash "></i></a>
                                                 </div>
 
-                                                <form class="d-none" id="deleteForm"
-                                                      action="{{ route('admin.delete_user',['id'=>$user->id]) }}"
+                                                <form class="d-none" id="delete({{$user->id}})"
+                                                      action="{{ route('admin.delete_user',['id'=>$user->id ]) }}"
                                                       method="POST">
                                                     @method('DELETE')
                                                     @csrf
@@ -107,7 +107,7 @@
         <div class="row justify-content-left mt-2">
             <div class="col-md-12">
                 <div class="card bg-dark text-light  border-green">
-                    <div class="card-header">{{ __('Список направлений') }}</div>
+                    <div class="card-header"><h4>{{ __('Список направлений') }}</h4></div>
                     <div class="card-body">
                         <div class="row-md-12">
                             <div class="d-flex flex-row-reverse bd-highlight">
@@ -140,7 +140,7 @@
                                         <th scope="row">{{ ++$key }}</th>
                                         <td>{{ $competition->name }}</td>
                                         <td>{{$competition->status()['label']}}</td>
-                                        <td>{{App\Models\User::types()["path"][$competition->user_type]}}</td>
+                                        <td>{{App\Models\User::types_label[$competition->user_type]}}</td>
                                         <td>
                                             <div class="row">
                                                 <div class="btn-group">

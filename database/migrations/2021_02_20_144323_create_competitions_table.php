@@ -16,6 +16,7 @@ class CreateCompetitionsTable extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name','100');
+            $table->string('preview_text','3000');
             $table->string('description','8000');
             $table->string('teaching_materials','8000');
             $table->smallInteger('max_points')->unsigned();

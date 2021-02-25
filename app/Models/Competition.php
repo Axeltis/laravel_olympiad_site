@@ -19,7 +19,8 @@ class Competition extends Model
         'description',
         'max_points',
         'teaching_materials',
-        'user_type'
+        'user_type',
+        'preview_text'
     ];
     public static $videos_folder_path = 'competitions/videos/';
 
@@ -28,6 +29,7 @@ class Competition extends Model
         return array_merge([
             'name' => ['required', 'string', 'max:100'],
             'user_type' => ['required', 'string', 'max:40'],
+            'preview_text' => ['required', 'string', 'max:3000'],
             'description' => ['required', 'string', 'max:8000'],
             'teaching_materials' => ['required', 'string', 'max:8000'],
             'max_points' => ['required', 'int', 'min:0'],
@@ -35,7 +37,11 @@ class Competition extends Model
         ],
             $merge);
     }
-
+    public function current_holding(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+       return $this->HasMany(HoldingCompetition::class)
+           ->where('end_date','>',Carbon::now()->format('Y-m-d'));
+    }
     public function holdings(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->HasMany(HoldingCompetition::class);

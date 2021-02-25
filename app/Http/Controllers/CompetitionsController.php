@@ -13,14 +13,20 @@ use Illuminate\Support\Str;
 
 class CompetitionsController extends Controller
 {
-
-    public function index(Request $request)
+    public function about()
+    {
+        return view('about');
+    }
+    public function index()
     {
         $competitions = Competition::all();
 
         return view('competitions', ['competitions' => $competitions]);
     }
-
+    public function schedule(){
+        $competitions = Competition::all();
+        return view('schedule',['competitions' => $competitions]);
+    }
     public function holdCompetitionForm(Request $request, $id)
     {
         $competition = Competition::find($id);
@@ -114,19 +120,21 @@ class CompetitionsController extends Controller
                 return redirect(route('admin.competition_materials_form', ['id' => $id,'data' => $data]));
                 break;
             case 'all':
-
                 $this->validator($request->all())->validate();
                 $competition = Competition::find($id);
                 if ($competition) {
-                    $competition->update(['name' => $request['name'],
+                    $competition->update(
+                        ['name' => $request['name'],
                         'max_points' => $request['max_points'],
-                        'user_type' => 'App/Models/' . ucfirst($request['user_type']),]);
-
+                        'user_type' =>$request['user_type'],
+                        'preview_text' =>$request['preview_text'],
+                        ]);
                 } else {
                     $competition = new Competition([
                         'name' => $request['name'],
                         'max_points' => $request['max_points'],
-                        'user_type' => 'App/Models/' . ucfirst($request['user_type']),
+                        'user_type' => $request['user_type'],
+                        'preview_text' =>$request['preview_text'],
                         'description' => $request['description'],
                         'teaching_materials' => $request['teaching_materials'],
                     ]);
