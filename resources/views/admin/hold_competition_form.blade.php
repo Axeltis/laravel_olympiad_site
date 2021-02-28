@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
                 <div class="card bg-dark text-light  border-green">
                     <div class="card-header"><h4>{{ __('Проведения олимпиады "'.$competition->name).'"' }}</h4></div>
                     <div class="card-body">
@@ -20,7 +20,7 @@
 
                         </div>
                         <p>
-                        <table  class="table  bg-light text-dark">
+                        <table class="table  bg-light text-dark">
 
                             <thead class="bg-dark text-light">
                             <tr>
@@ -43,6 +43,8 @@
                                     <td>
                                         <div class="row">
                                             <div class="btn-group">
+                                                <a href="{{route('admin.holding_users',['holding_id'=>$holding->id])}}"
+                                                   type="button" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                 <a onclick="set_value({{$key-1}})"
                                                    type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                 <a onclick="document.getElementById('deleteForm').submit();"
@@ -59,9 +61,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                            @endforeach
 
-                                </tbody>
+                            </tbody>
                         </table>
 
                     </div>
@@ -93,7 +95,7 @@
                     </script>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-md-5">
                 <div class="card bg-dark text-light  border-green">
                     <div class="card-header bg-light text-dark"><h4 id="header">{{ 'Новая запись'}}</h4></div>
                     <div class="card-body">
@@ -138,7 +140,7 @@
                                 $('#start_date').val(start_date_value);
                                 $('#end_date').val(end_date_value);
                                 $('#id').val(id_value);
-                                $('#header').text('Запись №'+(row_num+1).toString())
+                                $('#header').text('Запись №' + (row_num + 1).toString())
                             }
                         }
                     </script>
@@ -146,5 +148,5 @@
             </div>
         </div>
     </div>
-    </div>
+
 @endsection

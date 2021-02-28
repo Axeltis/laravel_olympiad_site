@@ -17,16 +17,20 @@ class CompetitionsController extends Controller
     {
         return view('about');
     }
+
     public function index()
     {
         $competitions = Competition::all();
 
         return view('competitions', ['competitions' => $competitions]);
     }
-    public function schedule(){
+
+    public function schedule()
+    {
         $competitions = Competition::all();
-        return view('schedule',['competitions' => $competitions]);
+        return view('schedule', ['competitions' => $competitions]);
     }
+
     public function holdCompetitionForm(Request $request, $id)
     {
         $competition = Competition::find($id);
@@ -52,6 +56,12 @@ class CompetitionsController extends Controller
         return redirect()->back();
     }
 
+    public function holdingUsers(Request $request, $holding_id)
+    {
+        $holding = HoldingCompetition::find($holding_id);
+        return view('admin.holding_users',['holding'=>$holding]);
+    }
+
     public function deleteHolding(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         HoldingCompetition::find($id)->delete();
@@ -63,6 +73,12 @@ class CompetitionsController extends Controller
     {
         $competition = Competition::find($id);
         return view('competition', ['competition' => $competition]);
+    }
+
+    public function teachingMaterial(Request $request, $id)
+    {
+        $competition = Competition::find($id);
+        return view('teaching_material', ['competition' => $competition]);
     }
 
     public function competitionForm($id = null)
@@ -83,8 +99,7 @@ class CompetitionsController extends Controller
     }
 
 
-
-    public function save(Request $request, $page, $id=null)
+    public function save(Request $request, $page, $id = null)
     {
         switch ($page) {
             case 'teaching_materials':
@@ -117,7 +132,7 @@ class CompetitionsController extends Controller
                 $competition = Competition::find($id);
                 $competition->update($data);
                 $competition->save();
-                return redirect(route('admin.competition_materials_form', ['id' => $id,'data' => $data]));
+                return redirect(route('admin.competition_materials_form', ['id' => $id, 'data' => $data]));
                 break;
             case 'all':
                 $this->validator($request->all())->validate();
@@ -125,16 +140,16 @@ class CompetitionsController extends Controller
                 if ($competition) {
                     $competition->update(
                         ['name' => $request['name'],
-                        'max_points' => $request['max_points'],
-                        'user_type' =>$request['user_type'],
-                        'preview_text' =>$request['preview_text'],
+                            'max_points' => $request['max_points'],
+                            'user_type' => $request['user_type'],
+                            'preview_text' => $request['preview_text'],
                         ]);
                 } else {
                     $competition = new Competition([
                         'name' => $request['name'],
                         'max_points' => $request['max_points'],
                         'user_type' => $request['user_type'],
-                        'preview_text' =>$request['preview_text'],
+                        'preview_text' => $request['preview_text'],
                         'description' => $request['description'],
                         'teaching_materials' => $request['teaching_materials'],
                     ]);
@@ -143,9 +158,9 @@ class CompetitionsController extends Controller
                 $competition->save();
                 if (array_key_exists('video', $request->all())) {
                     $video = $request->file('video');
-                    $files = Storage::disk('public')->files(Competition::$videos_folder_path . $competition->id);
+                    $files = Storage::disk('public')->files(Competition::videos_folder_path . $competition->id);
                     Storage::disk('public')->delete($files);
-                    $video->storeAs(Competition::$videos_folder_path, $competition->id, 'public');
+                    $video->storeAs(Competition::videos_folder_path, $competition->id, 'public');
                 }
 
                 $data = [

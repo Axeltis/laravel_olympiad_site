@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Traits\UuidTrait;
+use App\Policies\UserPolicy;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+    /**
+     * @var mixed
+     */
 
     public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
@@ -74,9 +78,9 @@ class User extends Authenticatable implements MustVerifyEmail
             $merge);
     }
 
-    public function competitions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function holdings(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(HoldingCompetition::class, 'users_competitions');
+        return $this->belongsToMany(HoldingCompetition::class, 'users_competitions')->withPivot(['file_attached','points']);;
     }
 
     public const types_label = [
@@ -97,4 +101,11 @@ class User extends Authenticatable implements MustVerifyEmail
         Teacher::path => Teacher::slug,
         null=>'none',
     ];
+    public function able($policy, $parameters): bool
+    {
+        $str = str_replace(' ', '', ucwords(str_replace('-', ' ', $policy)));
+        $str[0] = strtolower($str[0]);
+        return call_user_func(array(UserPolicy::getInstance(),$str),$this,$parameters);
+
+    }
 }

@@ -40,18 +40,6 @@
 
                     </div>
                 @endforeach
-                @if(Auth::check())
-                    @if(Auth::user()->role->slug=='admin')
-                        <div class="row">
-                            <div class="col">
-                                <hr class="border-green">
-                            </div>
-                            <div class="col-md-1"><a href="{{ route('admin.competition_form') }}"
-                                                     class="text-success"><i
-                                        class="fa fa-plus-circle fa-3x" aria-hidden="true"></i></a></div>
-                        </div>
-                    @endif
-                @endif
             </div>
         </div>
     </div>

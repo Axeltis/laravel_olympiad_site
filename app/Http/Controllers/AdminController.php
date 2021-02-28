@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competition;
+use App\Models\HoldingCompetition;
 use App\Models\Pupil;
 use App\Models\Role;
 use App\Models\Student;
@@ -11,6 +12,7 @@ use App\Models\User;
 use App\Models\UserStatus;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -19,11 +21,11 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::where('id',"!=",$request->user()->id)->get();
-
+        $users = User::all();
         $competitions = Competition::all();
-        return view('admin.home', ['users' => $users,'competitions'=>$competitions]);
+        return view('admin.home', ['users' => $users, 'competitions' => $competitions]);
     }
+
 
     public function createUser(Request $request)
     {
@@ -42,7 +44,7 @@ class AdminController extends Controller
                     'phone' => $request['phone'],
                     'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
-                    'password'=> bcrypt($request['password']),
+                    'password' => bcrypt($request['password']),
                 ]);
                 $role = Role::where('slug', $request['role'])->first();
                 $status = UserStatus::where('slug', $request['status'])->first();
@@ -51,10 +53,10 @@ class AdminController extends Controller
                 $user->status()->associate($status);
 
 
-                if($request['status']=='waiting') {
+                if ($request['status'] == 'waiting') {
                     event(new Registered($user));
                 }
-                switch($request['type_select']) {
+                switch ($request['type_select']) {
                     case 'student':
                         $student = new Student([
                             'speciality' => $request['student_speciality'],
@@ -115,8 +117,8 @@ class AdminController extends Controller
 
                 $user->role()->associate($role);
                 $user->status()->associate($status);
-                if($user->type) $user->type->delete();
-                switch($request['type_select']) {
+                if ($user->type) $user->type->delete();
+                switch ($request['type_select']) {
                     case 'student':
                         $student = new Student([
                             'speciality' => $request['student_speciality'],
@@ -154,17 +156,17 @@ class AdminController extends Controller
 
     protected function create_validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-        $type_validator=[
-            'student'=>Student::rules(),
-            'teacher'=>Teacher::rules(),
-            'pupil'=>Pupil::rules(),
-              'none'=>[]
+        $type_validator = [
+            'student' => Student::rules(),
+            'teacher' => Teacher::rules(),
+            'pupil' => Pupil::rules(),
+            'none' => []
         ];
 
 
-        if(array_key_exists($data['type_select'], $type_validator) )
-            $validator = User::rules(null,$type_validator[$data['type_select']]);
-        else{
+        if (array_key_exists($data['type_select'], $type_validator))
+            $validator = User::rules(null, $type_validator[$data['type_select']]);
+        else {
             abort(500);
         }
 
@@ -175,16 +177,16 @@ class AdminController extends Controller
 
     protected function edit_validator(array $data): \Illuminate\Contracts\Validation\Validator
     {
-        $type_validator=[
-            'student'=>Student::rules(),
-            'teacher'=>Teacher::rules(),
-            'pupil'=>Pupil::rules(),
-            'none'=>[]
+        $type_validator = [
+            'student' => Student::rules(),
+            'teacher' => Teacher::rules(),
+            'pupil' => Pupil::rules(),
+            'none' => []
         ];
 
-        if(array_key_exists($data['type_select'], $type_validator) )
-            $validator = User::rules($data['id'],$type_validator[$data['type_select']]);
-        else{
+        if (array_key_exists($data['type_select'], $type_validator))
+            $validator = User::rules($data['id'], $type_validator[$data['type_select']]);
+        else {
             abort(500);
         }
 
@@ -197,4 +199,29 @@ class AdminController extends Controller
         return redirect(route('admin.home'));
     }
 
+    public function downloadAnswer(Request $request, $holding_id, $user_id)
+    {
+        //$holding = HoldingCompetition::find($holding_id);
+        //$user = User::find($user_id);
+        $path = Competition::answers_folder_path . '' . $holding_id . '/' . $user_id;
+        if (!Storage::disk('public')->missing($path)) {
+            $file = Storage::disk('public')->get($path);
+
+            return Storage::disk('public')->download($path);
+        } else return redirect()->back();
+
+    }
+
+    public function estimateAnswer(Request $request, $holding_id, $user_id): \Illuminate\Http\RedirectResponse
+    {
+        $holding = HoldingCompetition::find($holding_id);
+        $user = User::find($user_id);
+        if ($user and $holding) {
+            $competition = $holding->competition()->first();
+            Validator::make($request->all(), ['points' => ['required', 'int', 'max:' . $competition->max_points], 'min:0'])->validate();
+            $holding->users()->updateExistingPivot($user, ['points' => $request['points']]);
+
+        }
+        return redirect()->back();
+    }
 }

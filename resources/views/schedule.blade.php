@@ -8,16 +8,7 @@
                     <div class="card-header"><h4>{{ __('Расписание') }}</h4></div>
                     <div class="card-body">
                         <div class="row-md-12">
-                            <div class="d-flex flex-row-reverse bd-highlight">
-                                <input style="text-decoration-color: white; font-size: large; color: white;
-                                background-color:transparent !important;
-                                border:none !important; box-shadow: none;" type="search" id="competitions_search"
-                                       class="form-control"
-                                       placeholder="Search"
-                                       aria-label="Search" onkeyup="filter_competitions()"/>
 
-                            </div>
-                            <p>
                             <table class="table  bg-light text-dark">
                                 <thead class="bg-dark text-light">
                                 <tr>

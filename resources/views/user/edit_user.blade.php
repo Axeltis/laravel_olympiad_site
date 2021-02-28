@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-md-7">
+    <div class="container">
+        <div class="row justify-content-left">
+            <div class="col-md-8">
                 <div class="card bg-dark text-white ">
                     <div class="card-header">{{ __('Изменение данных профиля') }}</div>
 
@@ -75,7 +75,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="form-group row d-none">
                                         <label for="email"
                                                class="col-md-4 col-form-label text-md-right">{{ __('E-Mail адрес') }}</label>
 
@@ -108,27 +108,18 @@
                                         </div>
                                     </div>
 
-
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="card bg-dark text-light border-light">
-                                        <div class="card-body">
-                                            @if($user->type->type_name??''=='student')
-                                                @include('components.fields.user_text',['label'=>'Колледж','value' =>$user->type->college??'','field_name'=>'college','type_name'=>'student'])
-                                                @include('components.fields.user_text',['label'=>'Специальность','value' =>$user->type->speciality??'','field_name'=>'speciality','type_name'=>'student'])
-                                                @include('components.fields.user_num_select',['label'=>'','value' =>$user->type->course??'','field_name'=>'course','type_name'=>'student','max_num'=>4,'min_num'=>1])
+                                            @if($user->type_name==App\Models\User::types_path['student'])
+                                                @include('components.fields.common_text',['label'=>'Колледж','value' =>$user->type->college??'','field_name'=>'student_college','type_name'=>'student'])
+                                                @include('components.fields.common_text',['label'=>'Специальность','value' =>$user->type->speciality??'','field_name'=>'student_speciality','type_name'=>'student'])
+                                                @include('components.fields.common_num_select',['label'=>'','value' =>$user->type->course??'','field_name'=>'student_course','type_name'=>'student','max_num'=>4,'min_num'=>1])
                                             @endif
-                                            @if($user->type->type_name??''=='teacher')
-
-
-                                                @include('components.fields.user_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'organization','type_name'=>'teacher'])
-                                                @include('components.fields.user_text',['label'=>'Должность','value' =>$user->type->position??'','field_name'=>'position','type_name'=>'teacher'])
+                                            @if($user->type_name == App\Models\User::types_path['teacher'])
+                                                @include('components.fields.common_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'teacher_organization','type_name'=>'teacher'])
+                                                @include('components.fields.common_text',['label'=>'Должность','value' =>$user->type->position??'','field_name'=>'teacher_position','type_name'=>'teacher'])
                                             @endif
-                                            @if($user->type->type_name??''=='pupil')
-                                                @include('components.fields.user_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'organization','type_name'=>'pupil'])
-                                                @include('components.fields.user_num_select',['label'=>'Класс','value' =>$user->type->class??'','field_name'=>'class','type_name'=>'pupil','max_num'=>11,'min_num'=>1])
-
+                                            @if($user->type_name==App\Models\User::types_path['pupil'])
+                                                @include('components.fields.common_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'pupil_organization','type_name'=>'pupil'])
+                                                @include('components.fields.common_num_select',['label'=>'Класс','value' =>$user->type->class??'','field_name'=>'pupil_class','type_name'=>'pupil','max_num'=>11,'min_num'=>1])
                                             @endif
                                             <div class="form-group row mb-0">
                                                 <div class="col-md-6 offset-md-4">
@@ -139,10 +130,7 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </form>
                     </div>
                 </div>

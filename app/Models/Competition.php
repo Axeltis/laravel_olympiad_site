@@ -22,7 +22,8 @@ class Competition extends Model
         'user_type',
         'preview_text'
     ];
-    public static $videos_folder_path = 'competitions/videos/';
+    public const videos_folder_path = 'competitions/videos/';
+    public const answers_folder_path = 'competitions/answers/';
 
     public static function rules($merge = []): array
     {
@@ -33,7 +34,7 @@ class Competition extends Model
             'description' => ['required', 'string', 'max:8000'],
             'teaching_materials' => ['required', 'string', 'max:8000'],
             'max_points' => ['required', 'int', 'min:0'],
-            'video' => ['file', 'mimes:avi,mp4,mov,ogg,qt,ogx,oga,ogv,webm']
+            'video' => ['file', 'mimes:avi,mp4,mov,ogg,qt,ogx,oga,ogv,webm'],
         ],
             $merge);
     }

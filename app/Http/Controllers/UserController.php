@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competition;
+use App\Models\HoldingCompetition;
 use App\Models\Pupil;
 use App\Models\Role;
 use App\Models\Student;
@@ -10,19 +11,39 @@ use App\Models\Teacher;
 use App\Models\User;
 use App\Models\UserStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function uploadAnswer(Request $request, $holding_id): \Illuminate\Http\RedirectResponse
     {
 
-        return view('user.home');
+        Validator::make($request->all(), ['answer_file' => ['required', 'file', 'max:4000000']])->validate();
+        $holding = HoldingCompetition::find($holding_id);
+        $holding->users()->updateExistingPivot($request->user(), ['file_attached' => true]);
+        $path = Competition::answers_folder_path . '\\' . $holding->id.'\\'.$request->user()->id;
+        if (!Storage::disk('public')->missing($path)) {
+            $file = Storage::disk('public')
+                ->get($path);
+        }
+        Storage::disk('public')->delete($file);
+        $file = $request->file('answer_file');
+        $file->storeAs($path, 'public');
+        return redirect()->back();
     }
 
-    public function profile($id)
+    public function index(Request $request)
     {
-        $user = User::where('id', $id)->first();
+        $user = $request->user();
+        $holdings = $user->holdings;
+
+        return view('user.home', ['user' => $user, 'holdings' => $holdings]);
+    }
+
+    public function profile($user_id)
+    {
+        $user = User::where('id', $user_id)->first();
         return view('user.profile', ['user' => $user]);
     }
 
@@ -42,29 +63,29 @@ class UserController extends Controller
         return Validator::make($data, $validator);
     }
 
-    public function editUser(Request $request, $id)
+    public function editUser(Request $request, $user_id)
     {
         switch ($request->method()) {
             case 'GET':
-                $user = User::find($id);
+                $user = User::find($user_id);
                 return view('user.edit_user', ['user' => $user]);
                 break;
             case 'POST':
                 $this->edit_validator($request->all())->validate();
 
-                $user =  User::find($id);;
+                $user = User::find($user_id);;
 
                 $user->update([
                     'name' => $request['name'],
                     'surname' => $request['surname'],
                     'middlename' => $request['middlename'],
                     'phone' => $request['phone'],
-                    'email' => $request['email'],
+                   // 'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
                 ]);
                 $user->save();
 
-                switch ($user->type()) {
+                switch (User::types_slug[$user->type_name]) {
                     case 'student':
                         $user->type->update([
                             'speciality' => $request['student_speciality'],
@@ -87,30 +108,40 @@ class UserController extends Controller
                         ]);
                         $user->type->save();
                         break;
-                    default:
-                        break;
                 }
-                return redirect(route('user.profile',['id'=>$id]));
+                return redirect(route($user->role->slug.'.home'));
                 break;
         }
     }
-        public function deleteUser($id)
-        {
-            User::find($id)->delete();
 
-            return redirect(route('admin.home'));
-        }
-    public function joinCompetition(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function deleteUser($user_id)
     {
-        $user = $request->user();
-        $competition = Competition::find($id);
+        User::find($user_id)->delete();
 
-        if($user->type_name==$competition->user_type) {
-            $user->competitions()->attach($competition->current_holding);
-        }
-
-        return redirect(route($user->role->slug.'.home'));
+        return redirect(route('admin.home'));
     }
 
+    public function joinCompetition(Request $request, $competition_id): \Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
+        $competition = Competition::find($competition_id);
 
+        if ($user->type_name == $competition->user_type) {
+            //$user->competitions()->attach($competition->current_holding);
+            if($competition->current_holding->first())
+            $user->holdings()->syncWithoutDetaching([$competition->current_holding->first()->id]);
+        }
+
+        return redirect(route($user->role->slug . '.home'));
+    }
+
+    public function leaveCompetition(Request $request, $competition_id): \Illuminate\Http\RedirectResponse
+    {
+        $user = $request->user();
+        $competition = Competition::find($competition_id);
+        if ($user->type_name == $competition->user_type) {
+            $user->holdings()->where('holding_competition_id', $competition->current_holding->first()->id)->detach();
+        }
+        return redirect(route($user->role->slug . '.home'));
+    }
 }

@@ -99,8 +99,6 @@
                     <a type="button" href="{{route('competitions')}}"
                        class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif"
                     >Направления</a>
-                    <a type="button" class="btn btn-secondary">Результаты</a>
-                    <a type="button" class="btn btn-secondary">Зал славы</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                        class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
@@ -109,8 +107,8 @@
                     >{{ __('Личный кабинет') }}</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
-                       class="btn @if(Request::url()== route('user.profile',['id'=>Auth::user()->id])) btn-success @else btn-secondary @endif"
-                       href="{{ route('user.profile',['id'=>Auth::user()->id])}}"
+                       class="btn @if(\Route::current()->getName() == 'user.profile') btn-success @else btn-secondary @endif"
+                       href="{{ route('user.profile',['user_id'=>Auth::user()->id])}}"
                         @endif
                     >{{ __('Профиль') }}</a>
                 </div>

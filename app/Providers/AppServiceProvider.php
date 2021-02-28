@@ -30,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('uuid', function ($attribute, $value, $parameters, $validator) {
             return \Ramsey\Uuid\Uuid::isValid($value);
         });
+
     }
 }
