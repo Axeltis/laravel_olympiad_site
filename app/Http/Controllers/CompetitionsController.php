@@ -31,9 +31,9 @@ class CompetitionsController extends Controller
         return view('schedule', ['competitions' => $competitions]);
     }
 
-    public function holdCompetitionForm(Request $request, $id)
+    public function holdCompetitionForm(Request $request, $competition_id)
     {
-        $competition = Competition::find($id);
+        $competition = Competition::find($competition_id);
         return view('admin.hold_competition_form', ['competition' => $competition]);
 
     }
@@ -62,44 +62,44 @@ class CompetitionsController extends Controller
         return view('admin.holding_users',['holding'=>$holding]);
     }
 
-    public function deleteHolding(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function deleteHolding(Request $request, $holding_id): \Illuminate\Http\RedirectResponse
     {
-        HoldingCompetition::find($id)->delete();
+        HoldingCompetition::find($holding_id)->delete();
 
         return redirect()->back();
     }
 
-    public function competition(Request $request, $id)
+    public function competition(Request $request, $competition_id)
     {
-        $competition = Competition::find($id);
+        $competition = Competition::find($competition_id);
         return view('competition', ['competition' => $competition]);
     }
 
-    public function teachingMaterial(Request $request, $id)
+    public function teachingMaterial(Request $request, $competition_id)
     {
-        $competition = Competition::find($id);
+        $competition = Competition::find($competition_id);
         return view('teaching_material', ['competition' => $competition]);
     }
 
-    public function competitionForm($id = null)
+    public function competitionForm($competition_id = null)
     {
-        $competition = Competition::find($id);
+        $competition = Competition::find($competition_id);
 
-        return view('admin.competition.competition_form', ['competition' => $competition, 'id' => $id]);
+        return view('admin.competition.competition_form', ['competition' => $competition]);
     }
 
-    public function competitionDescriptionForm(Request $request, $id)
+    public function competitionDescriptionForm(Request $request, $competition_id)
     {
-        return view('admin.competition.description_form', ['data' => $request['data'], 'id' => $id]);
+        return view('admin.competition.description_form', ['data' => $request['data'], 'competition_id' => $competition_id]);
     }
 
-    public function competitionMaterialsForm(Request $request, $id)
+    public function competitionMaterialsForm(Request $request, $competition_id)
     {
-        return view('admin.competition.teaching_materials_form', ['data' => $request['data'], 'id' => $id]);
+        return view('admin.competition.teaching_materials_form', ['data' => $request['data'], 'competition_id' => $competition_id]);
     }
 
 
-    public function save(Request $request, $page, $id = null)
+    public function save(Request $request, $page, $competition_id = null)
     {
         switch ($page) {
             case 'teaching_materials':
@@ -113,7 +113,7 @@ class CompetitionsController extends Controller
                     'teaching_materials' => Competition::rules()['teaching_materials']
                 ];
                 Validator::make($data, $validator)->validate();
-                $competition = Competition::find($id);
+                $competition = Competition::find($competition_id);
                 $competition->update($data);
                 $competition->save();
                 return redirect(route('admin.home'));
@@ -129,14 +129,14 @@ class CompetitionsController extends Controller
                     'teaching_materials' => Competition::rules()['teaching_materials']
                 ];
                 Validator::make($data, $validator)->validate();
-                $competition = Competition::find($id);
+                $competition = Competition::find($competition_id);
                 $competition->update($data);
                 $competition->save();
-                return redirect(route('admin.competition_materials_form', ['id' => $id, 'data' => $data]));
+                return redirect(route('admin.competition_materials_form', ['competition_id' => $competition_id, 'data' => $data]));
                 break;
             case 'all':
                 $this->validator($request->all())->validate();
-                $competition = Competition::find($id);
+                $competition = Competition::find($competition_id);
                 if ($competition) {
                     $competition->update(
                         ['name' => $request['name'],
@@ -167,7 +167,7 @@ class CompetitionsController extends Controller
                     'description' => $request['description'],
                     'teaching_materials' => $request['teaching_materials'],
                 ];
-                return redirect(route('admin.competition_description_form', ['data' => $data, 'id' => $competition->id]));
+                return redirect(route('admin.competition_description_form', ['data' => $data, 'competition_id' => $competition->id]));
                 break;
             default:
                 abort(500, 'Invalid request');
@@ -181,9 +181,9 @@ class CompetitionsController extends Controller
         return Validator::make($data, $validator);
     }
 
-    public function delete(Request $request, $id): \Illuminate\Http\RedirectResponse
+    public function delete(Request $request, $competition_id): \Illuminate\Http\RedirectResponse
     {
-        Competition::find($id)->delete();
+        Competition::find($competition_id)->delete();
         return redirect()->back();
     }
 }

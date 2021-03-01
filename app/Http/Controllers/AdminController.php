@@ -21,7 +21,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::where('id','!=',$request->user()->id)->get();
         $competitions = Competition::all();
         return view('admin.home', ['users' => $users, 'competitions' => $competitions]);
     }
@@ -90,11 +90,11 @@ class AdminController extends Controller
         }
     }
 
-    public function editUser(Request $request, $id)
+    public function editUser(Request $request, $user_id)
     {
         switch ($request->method()) {
             case 'GET':
-                $user = User::find($id);
+                $user = User::find($user_id);
                 $roles = Role::all();
                 $statuses = UserStatus::all();
                 return view('admin.edit_user', ['statuses' => $statuses, 'user' => $user, 'roles' => $roles]);
@@ -193,9 +193,15 @@ class AdminController extends Controller
         return Validator::make($data, $validator);
     }
 
-    public function deleteUser($id)
+    public function deleteUser($user_id)
     {
-        User::find($id)->delete();
+        $user=User::find($user_id)->delete();
+        foreach($user->holdings as $holding) {
+            $path = Competition::answers_folder_path . $holding->id . '/' . $user_id;
+            $files = Storage::disk('public')
+                ->files($path);
+            Storage::delete($files);
+        }
         return redirect(route('admin.home'));
     }
 
@@ -203,12 +209,13 @@ class AdminController extends Controller
     {
         //$holding = HoldingCompetition::find($holding_id);
         //$user = User::find($user_id);
-        $path = Competition::answers_folder_path . '' . $holding_id . '/' . $user_id;
-        if (!Storage::disk('public')->missing($path)) {
-            $file = Storage::disk('public')->get($path);
-
-            return Storage::disk('public')->download($path);
-        } else return redirect()->back();
+        $path = Competition::answers_folder_path  . $holding_id . '/' . $user_id;
+        $files = Storage::disk('public')
+            ->files($path);
+        foreach ($files as $file) {
+            return Storage::disk('public')->download($file);
+        }
+        return redirect()->back();
 
     }
 

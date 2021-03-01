@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Competition;
 use App\Models\HoldingCompetition;
 use App\Models\Pupil;
-use App\Models\Role;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
-use App\Models\UserStatus;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -22,14 +21,16 @@ class UserController extends Controller
         Validator::make($request->all(), ['answer_file' => ['required', 'file', 'max:4000000']])->validate();
         $holding = HoldingCompetition::find($holding_id);
         $holding->users()->updateExistingPivot($request->user(), ['file_attached' => true]);
-        $path = Competition::answers_folder_path . '\\' . $holding->id.'\\'.$request->user()->id;
-        if (!Storage::disk('public')->missing($path)) {
-            $file = Storage::disk('public')
-                ->get($path);
-        }
-        Storage::disk('public')->delete($file);
+        $path = Competition::answers_folder_path  . $holding->id . '/' . $request->user()->id;
+
+        $files = Storage::disk('public')
+                ->files($path);
+        Storage::disk('public')->delete($files);
+
+
         $file = $request->file('answer_file');
-        $file->storeAs($path, 'public');
+       // Storage::disk('public')->put($path,$file);
+        Storage::disk('public')->putFileAs($path,$file,$request->user()->id.'.'. $file->extension());
         return redirect()->back();
     }
 
@@ -80,7 +81,7 @@ class UserController extends Controller
                     'surname' => $request['surname'],
                     'middlename' => $request['middlename'],
                     'phone' => $request['phone'],
-                   // 'email' => $request['email'],
+                    // 'email' => $request['email'],
                     'birth_date' => $request['birth_date'],
                 ]);
                 $user->save();
@@ -109,7 +110,7 @@ class UserController extends Controller
                         $user->type->save();
                         break;
                 }
-                return redirect(route($user->role->slug.'.home'));
+                return redirect(route('user.profile',['user_id'=>$request->user()->id]));
                 break;
         }
     }
@@ -125,12 +126,9 @@ class UserController extends Controller
     {
         $user = $request->user();
         $competition = Competition::find($competition_id);
-
-        if ($user->type_name == $competition->user_type) {
-            //$user->competitions()->attach($competition->current_holding);
-            if($competition->current_holding->first())
+        if ($competition->current_holding->first())
             $user->holdings()->syncWithoutDetaching([$competition->current_holding->first()->id]);
-        }
+
 
         return redirect(route($user->role->slug . '.home'));
     }
@@ -138,10 +136,11 @@ class UserController extends Controller
     public function leaveCompetition(Request $request, $competition_id): \Illuminate\Http\RedirectResponse
     {
         $user = $request->user();
-        $competition = Competition::find($competition_id);
-        if ($user->type_name == $competition->user_type) {
-            $user->holdings()->where('holding_competition_id', $competition->current_holding->first()->id)->detach();
-        }
+
+        $user->holdings()->whereHas('competition', function ($q) use ($competition_id) {
+            $q->where('id', $competition_id);
+        })->detach();
+
         return redirect(route($user->role->slug . '.home'));
     }
 }

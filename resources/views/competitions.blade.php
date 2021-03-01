@@ -24,7 +24,7 @@
                         <div class="card-body bg-light text-dark" style="border-radius: 12px; ">
                             <p class="card-text mb-auto">{!!$competition->preview_text!!}</p>
                             <div class="d-flex bd-highlight mb-3">
-                                <div class="bd-highlight"><a href="{{route('competition',['id'=>$competition->id])}}"
+                                <div class="bd-highlight"><a href="{{route('competition',['competition_id'=>$competition->id])}}"
                                                              type="button" class="btn btn-success rounded-pill"
                                                              href="#"><i class="fa fa-eye"></i> Информация по
                                         направлению</a>

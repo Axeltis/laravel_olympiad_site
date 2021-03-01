@@ -14,7 +14,7 @@
                 @if(Auth::check())
                     @if(array_key_exists(Auth::user()->type_name,App\Models\User::types_label))
                         <form class="d-none" id="join({{$competition->id}})"
-                              action="{{route('user.join_competition',['id'=>$competition->id])}}"
+                              action="{{route('user.join_competition',['competition_id'=>$competition->id])}}"
                               method="POST">
                             @csrf
                         </form>

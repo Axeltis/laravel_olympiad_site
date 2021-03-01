@@ -18,7 +18,8 @@ class CreateUsersCompetitionsTable extends Migration
             $table->uuid('holding_competition_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');;
             $table->index('user_id');
             $table->foreign('holding_competition_id')
                 ->references('id')

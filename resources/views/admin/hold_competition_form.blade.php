@@ -53,7 +53,7 @@
                                             </div>
 
                                             <form class="d-none" id="deleteForm"
-                                                  action="{{ route('admin.delete_holding',['id'=>$holding->id]) }}"
+                                                  action="{{ route('admin.delete_holding',['holding_id'=>$holding->id]) }}"
                                                   method="POST">
                                                 @method('DELETE')
                                                 @csrf

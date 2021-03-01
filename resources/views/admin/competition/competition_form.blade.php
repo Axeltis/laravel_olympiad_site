@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <form method="POST"
-              action="{{ route('admin.save_competition',['page'=>'all','id'=>$competition->id??null]) }}"
+              action="{{ route('admin.save_competition',['page'=>'all','competition_id'=>$competition->id??null]) }}"
               enctype="multipart/form-data">
             @csrf
             <div class="row">

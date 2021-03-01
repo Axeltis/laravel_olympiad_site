@@ -14,7 +14,7 @@
                     </div>
                     <div class="card-body">
                         <form method="POST"
-                              action="{{ route('admin.save_competition',['page'=>'teaching_materials','id'=>$id]) }}">
+                              action="{{ route('admin.save_competition',['page'=>'teaching_materials','competition_id'=>$competition_id]) }}">
                             @csrf
                             <input id="description" name="description" type="hidden"
                                    value="{{$data['description']}}">

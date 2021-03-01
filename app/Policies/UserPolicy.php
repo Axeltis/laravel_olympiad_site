@@ -20,16 +20,15 @@ class UserPolicy
 
     public function view(User $user, array $data): bool
     {
-
         return $user->role->slug == $data['role'];
     }
 
     public function editUser(User $user, array $data): bool
     {
-        return $user->id == $data['user_id'];
+        return $user->id == $data['user_id'] or $user->role->slug == 'admin';
     }
 
-    public function joinCompetition(User $user, array $data)
+    public function joinCompetition(User $user, array $data): bool
     {
         $competition = Competition::find($data['competition_id']);
         if ($competition)
@@ -37,11 +36,11 @@ class UserPolicy
         else return false;
     }
 
-    public function leaveCompetition(User $user, array $data)
+    public function leaveCompetition(User $user, array $data): bool
     {
         $competition_id = $data['competition_id'];
-        return $user->holdings->whereHas('competition', function ($q) use ($competition_id) {
-            $q->find($competition_id);
+        return $user->holdings()->whereHas('competition', function ($q) use ($competition_id) {
+            $q->where('id',$competition_id);
         })->exists();
     }
 

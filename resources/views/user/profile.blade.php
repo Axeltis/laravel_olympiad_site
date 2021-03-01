@@ -49,7 +49,7 @@
 
                     </table>
 
-                    <a href="{{ route('user.edit_user_page',['id'=>$user->id])}}"
+                    <a href="{{ route('user.edit_user_page',['user_id'=>$user->id])}}"
                        type="button" class="btn btn-success"><i class="fa fa-edit"></i>
                         Изменить данные</a>
                 </div>

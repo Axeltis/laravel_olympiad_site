@@ -18,7 +18,7 @@
                     @foreach($holdings as $holding)
                         <div class="p-2">
                             <div class="card border-green bg-dark text-light  mt-2 "
-                                 style="border-radius: 12px; width: 400px;height: 400px;">
+                                 style="border-radius: 12px; width: 800px;height: 400px;">
                                 <div class="card-header">
                                     <div class="d-flex">
                                         <div class="p-2 ">

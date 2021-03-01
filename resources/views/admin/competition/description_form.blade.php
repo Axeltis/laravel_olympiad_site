@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <form method="POST"
-                              action="{{ route('admin.save_competition',['page'=>'description','id'=>$id]) }}"
+                              action="{{ route('admin.save_competition',['page'=>'description','competition_id'=>$competition_id]) }}"
                               >
                             <input id="teaching_materials" name="teaching_materials" type="hidden" value="{{$data['teaching_materials']}}">
                             @csrf

@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Регистрация') }}</div>
 
                     <div class="card-body">
-                        <form method="POST"  id="registerForm" action="{{ route('admin.edit_user',['id'=>$user->id]) }}">
+                        <form method="POST"  id="registerForm" action="{{ route('admin.edit_user',['user_id'=>$user->id]) }}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
                             <div class="form-group row">

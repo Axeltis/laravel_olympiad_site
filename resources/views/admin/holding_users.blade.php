@@ -24,7 +24,7 @@
                                     <th scope="col">№</th>
                                     <th scope="col">UUID</th>
                                     <th scope="col">ФИО</th>
-                                    <th scope="col">Кол-во баллов</th>
+                                    <th scope="col">Кол-во баллов (MAX:{{$holding->competition->max_points}})</th>
                                     <th scope="col">Скачать файл</th>
                                 </tr>
                                 </thead>
@@ -46,8 +46,8 @@
                                                     <div class="input-group-prepend">
 
                                                         <button type="submit"
-                                                           class="btn btn-success"
-                                                       ><i class="fa fa-save"></i></button>
+                                                                class="btn btn-success"
+                                                        ><i class="fa fa-save"></i></button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -55,13 +55,17 @@
                                         <td>
                                             <div class="row">
                                                 <div class="btn-group">
-                                                           <a href="{{route('admin.download_answer',['holding_id'=>$holding->id,'user_id'=>$user->id ])}}"
+                                                    <a href="{{route('admin.download_answer',['holding_id'=>$holding->id,'user_id'=>$user->id ])}}"
                                                        type="button"
-                                                       class="btn btn-warning"
-                                                           @if(Storage::disk('public')->missing(App\Models\Competition::answers_folder_path . '' . $holding->id . '/' . $user->id))
-                                                               disabled
-                                                               @endif
-                                                               ><i class="fa fa-download"></i></a>
+                                                       class="btn
+                                    @if(!Storage::disk('public')->files(App\Models\Competition::answers_folder_path . $holding->id . '/' . $user->id)
+                                   )
+                                                           disabled
+                                                           btn-secondary
+                                                           @else
+                                                           btn-warning
+                                    @endif"
+                                                    ><i class="fa fa-download"></i></a>
 
                                                 </div>
                                             </div>

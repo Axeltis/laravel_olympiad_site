@@ -41,24 +41,26 @@
                                         <td>{{App\Models\User::types_label[$competition->user_type]}}</td>
                                         <td>
                                             <div class="row">
-                                                <div class="btn-group">
-                                                    <a href="{{route('admin.hold_competition_form',['id'=>$competition->id])}}"
+                                                <div class="btn-group ">
+                                                    <a href="{{route('admin.hold_competition_form',['competition_id'=>$competition->id])}}"
                                                        type="button"
-                                                       class="btn btn-warning">
-                                                        <i class="fa fa-calendar-plus-o"></i>
-                                                    </a>
-                                                    <a href="{{route('competition',['id'=>$competition->id])}}"
+                                                       class="btn btn-warning border-dark">
+                                                        <i class="fa fa-calendar-plus-o"></i></a>
+                                                    <a href="{{route('competition',['competition_id'=>$competition->id])}}"
                                                        type="button"
-                                                       class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('admin.competition_form',['id'=>$competition->id])}}"
-                                                       type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                    <a onclick="document.getElementById('deleteCompetitionForm').submit();"
-                                                       class="btn btn-danger"><i
+                                                       class="btn btn-primary border-dark"><i class="fa fa-eye"></i></a>
+                                                    <a href="{{route('competition.teaching_materials',['competition_id'=>$competition->id])}}"
+                                                       type="button"
+                                                       class="btn btn-primary border-dark"><i class="fa fa-book"></i></a>
+                                                    <a href="{{route('admin.competition_form',['competition_id'=>$competition->id])}}"
+                                                       type="button" class="btn btn-success border-dark"><i class="fa fa-edit"></i></a>
+                                                    <a onclick="document.getElementById('deleteCompetition({{$competition->id}})').submit();"
+                                                       class="btn btn-danger border-dark"><i
                                                             class="fa fa-trash "></i></a>
                                                 </div>
 
-                                                <form class="d-none" id="deleteCompetitionForm"
-                                                      action="{{ route('admin.delete_competition',['id'=>$competition->id]) }}"
+                                                <form class="d-none" id="deleteCompetition({{$competition->id}})"
+                                                      action="{{ route('admin.delete_competition',['competition_id'=>$competition->id]) }}"
                                                       method="POST">
                                                     @method('DELETE')
                                                     @csrf
@@ -150,9 +152,9 @@
                                         <td>
                                             <div class="row">
                                                 <div class="btn-group">
-                                                    <a href="{{route('user.profile',['id'=>$user->id ])}}" type="button"
+                                                    <a href="{{route('user.profile',['user_id'=>$user->id ])}}" type="button"
                                                        class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('admin.edit_user_page',['id'=>$user->id ])}}"
+                                                    <a href="{{route('admin.edit_user_page',['user_id'=>$user->id ])}}"
                                                        type="button" class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                     <a onclick="document.getElementById('delete({{$user->id}})').submit();"
                                                        class="btn btn-danger"><i
@@ -160,7 +162,7 @@
                                                 </div>
 
                                                 <form class="d-none" id="delete({{$user->id}})"
-                                                      action="{{ route('admin.delete_user',['id'=>$user->id ]) }}"
+                                                      action="{{ route('admin.delete_user',['user_id'=>$user->id ]) }}"
                                                       method="POST">
                                                     @method('DELETE')
                                                     @csrf

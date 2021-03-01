@@ -9,7 +9,7 @@
 
                     <div class="card-body">
                         <form method="POST" id="registerForm"
-                              action="{{ route('user.edit_user',['id'=>$user->id]) }}">
+                              action="{{ route('user.edit_user',['user_id'=>$user->id]) }}">
                             @csrf
                             <input type="hidden" name="id" value="{{$user->id}}">
                             <input type="hidden" name="type" value="{{$user->type->type_name??'none'}}">
