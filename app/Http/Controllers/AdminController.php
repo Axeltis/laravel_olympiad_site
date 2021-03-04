@@ -14,14 +14,13 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use ZipArchive;
 
 class AdminController extends Controller
 {
-
-
     public function index(Request $request)
     {
-        $users = User::where('id','!=',$request->user()->id)->get();
+        $users = User::where('id', '!=', $request->user()->id)->get();
         $competitions = Competition::all();
         return view('admin.home', ['users' => $users, 'competitions' => $competitions]);
     }
@@ -195,8 +194,8 @@ class AdminController extends Controller
 
     public function deleteUser($user_id)
     {
-        $user=User::find($user_id)->delete();
-        foreach($user->holdings as $holding) {
+        $user = User::find($user_id)->delete();
+        foreach ($user->holdings as $holding) {
             $path = Competition::answers_folder_path . $holding->id . '/' . $user_id;
             $files = Storage::disk('public')
                 ->files($path);
@@ -205,11 +204,37 @@ class AdminController extends Controller
         return redirect(route('admin.home'));
     }
 
+    public function downloadAllAnswers(Request $request, $holding_id): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $path = Competition::answers_folder_path . $holding_id . '/';
+        $path =Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix().$path;
+        $zip_file = $path . 'answers.zip';
+        $zip = new \ZipArchive();
+        $zip->open($zip_file, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path));
+
+        foreach ($files as  $file)
+        {
+            $filePath     = $file->getRealPath();
+            // We're skipping all subfolders
+            if (!$file->isDir()) {
+                if($file->getFilename()!='answers.zip') {
+                    $zip->addFile($filePath, $file->getFilename());
+                }
+
+            }
+        }
+
+        $zip->close();
+        return response()->download($zip_file);
+    }
+
     public function downloadAnswer(Request $request, $holding_id, $user_id)
     {
         //$holding = HoldingCompetition::find($holding_id);
         //$user = User::find($user_id);
-        $path = Competition::answers_folder_path  . $holding_id . '/' . $user_id;
+        $path = Competition::answers_folder_path . $holding_id . '/' . $user_id;
         $files = Storage::disk('public')
             ->files($path);
         foreach ($files as $file) {

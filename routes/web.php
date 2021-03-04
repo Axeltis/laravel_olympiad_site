@@ -49,9 +49,9 @@ Route::middleware('verified')->group(function () {
         Route::post('/competition/{competition_id}/holding/save/{holding_id?}', [App\Http\Controllers\CompetitionsController::class, 'holdCompetition'])->name('admin.hold_competition');
         Route::delete('/competition/holding/delete/{holding_id}', [App\Http\Controllers\CompetitionsController::class, 'deleteHolding'])->name('admin.delete_holding');
         Route::get('/competition/holding/{holding_id}/users', [App\Http\Controllers\CompetitionsController::class, 'holdingUsers'])->name('admin.holding_users');
-        Route::get('/competition/holding/{holding_id}/users/{user_id}/download_answer', [App\Http\Controllers\AdminController::class, 'downloadAnswer'])->name('admin.download_answer');
+        Route::get('/competition/holding/{holding_id}/users/{user_id}/download_all_answers', [App\Http\Controllers\AdminController::class, 'downloadAllAnswers'])->name('admin.download_answer');
+        Route::get('/competition/holding/{holding_id}/users/download_answer', [App\Http\Controllers\AdminController::class, 'downloadAllAnswers'])->name('admin.download_all_answers');
         Route::post('/competition/holding/{holding_id}/users/{user_id}/estimate_answer', [App\Http\Controllers\AdminController::class, 'estimateAnswer'])->name('admin.estimate_answer');
-
     });
 
     Route::middleware('access.route:view,user')->group(function () {

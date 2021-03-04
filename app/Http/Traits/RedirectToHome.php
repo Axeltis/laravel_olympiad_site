@@ -6,12 +6,8 @@ trait RedirectToHome
 {
     protected function redirectTo(): string
     {
-        if(Auth::user()->role->slug=='user')
-            return route('user.home');
-        elseif(Auth::user()->role->slug=='moderator')
-            return route('moderator.home');
-        elseif(Auth::user()->role->slug=='admin')
-            return route('admin.home');
+        if(Auth::check())
+            return route(Auth::user()->role->slug.'.home');
         else return route('login');
     }
 }

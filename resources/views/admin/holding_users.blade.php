@@ -4,19 +4,27 @@
     <div class="container">
         <div class="row justify-content-left">
             <div class="col-md-12">
+
                 <div class="card bg-dark text-light  border-green">
                     <div class="card-header"><h4>{{ __('Список участников') }}</h4></div>
                     <div class="card-body">
 
                         <div class="row-md-12">
 
-                            <input style="text-decoration-color: white; font-size: large; color: white;
+
+                            <div class="d-flex flex-row bd-highlight mb-3">
+                                <input style="text-decoration-color: white; font-size: large; color: white;
                                 background-color:transparent !important;
                                 border:none !important; box-shadow: none;" type="search" id="users_search"
-                                   class="form-control"
-                                   placeholder="Search"
-                                   aria-label="Search" onkeyup="filter_users()"/>
+                                       class="form-control"
+                                       placeholder="Search"
+                                       aria-label="Search" onkeyup="filter_users()"/>
 
+                                <a style="width: 250px" href="{{route('admin.download_all_answers',['holding_id'=>$holding->id])}}"
+                                   type="button"
+                                   class="btn btn-warning"
+                                >Загрузить все ответы <i class="fa fa-download"></i></a>
+                            </div>
                             <p>
                             <table class="table  bg-light text-dark">
                                 <thead class="bg-dark text-light">
