@@ -14,7 +14,7 @@ endif
 project=-p ${COMPOSE_PROJECT_NAME}
 service=${COMPOSE_PROJECT_NAME}:latest
 
-deploy: build-no-cache env start composer-install key-generate config-cache storage-link
+deploy: build start composer-install key-generate config-cache storage-link
 
 env:
 	@cp ./.env.example ./.env

@@ -30,9 +30,9 @@ class AccessRoute
             if ($role) $parameters['role'] = $role;
             if ($user->able($policy, $parameters))
                 return $next($request);
-        } else {
-            return redirect(route('login'));
         }
+        return redirect()->route('login');
+
     }
 
 

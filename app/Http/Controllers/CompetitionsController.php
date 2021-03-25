@@ -128,7 +128,9 @@ class CompetitionsController extends Controller
                     'description' => Competition::rules()['description'],
                     'teaching_materials' => Competition::rules()['teaching_materials']
                 ];
+
                 Validator::make($data, $validator)->validate();
+
                 $competition = Competition::find($competition_id);
                 $competition->update($data);
                 $competition->save();

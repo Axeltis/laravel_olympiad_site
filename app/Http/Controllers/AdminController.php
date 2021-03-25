@@ -51,10 +51,6 @@ class AdminController extends Controller
                 $user->role()->associate($role);
                 $user->status()->associate($status);
 
-
-                if ($request['status'] == 'waiting') {
-                    event(new Registered($user));
-                }
                 switch ($request['type_select']) {
                     case 'student':
                         $student = new Student([
@@ -194,13 +190,14 @@ class AdminController extends Controller
 
     public function deleteUser($user_id)
     {
-        $user = User::find($user_id)->delete();
+        $user = User::find($user_id);
         foreach ($user->holdings as $holding) {
             $path = Competition::answers_folder_path . $holding->id . '/' . $user_id;
             $files = Storage::disk('public')
                 ->files($path);
             Storage::delete($files);
         }
+        $user->delete();
         return redirect(route('admin.home'));
     }
 

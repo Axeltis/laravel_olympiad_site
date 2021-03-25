@@ -34,17 +34,21 @@
                             </tr>
                         @endif
                         @if($user->type)
-                            <tr>
-                                <td class="active">Тип участника</td>
-                                <td>{{App\Models\User::types_label[$user->type_name]}}</td>
-                            </tr>
-                            @foreach(array_keys($user->type->viewables) as $viewable )
-                                <tr>
-                                    <td class="active">{{$user->type->viewables[$viewable]}}
-                                    <td>{{$user->type[ $viewable]}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
+                            @if($user->type::slug=='student')
+                                <tr><td class="active">Тип участника</td><td>Студент</td></tr>
+                                <tr><td class="active">Колледж</td><td>{{$user->type->college}}</td></tr>
+                                <tr><td class="active">Специальность</td><td>{{$user->type->speciality}}</td></tr>
+                                <tr><td class="active">Курс</td><td>{{$user->type->course}}</td></tr>
+                            @elseif($user->type::slug=='teacher')
+                                <tr><td class="active">Тип участника</td><td>Учитель</td></tr>
+                                <tr><td class="active">Образовательная организация</td><td>{{$user->type->organization}}</td></tr>
+                                <tr><td class="active">Должность</td><td>{{$user->type->position}}</td></tr>
+                            @elseif($user->type::slug=='pupil')
+                                <tr><td class="active">Тип участника</td><td>Школьник</td></tr>
+                                <tr><td class="active">Образовательная организация</td><td>{{$user->type->organization}}</td></tr>
+                                <tr><td class="active">Класс</td><td>{{$user->type->class}}</td></tr>
+                        @else
+                        @endif
                         @endif
 
                     </table>

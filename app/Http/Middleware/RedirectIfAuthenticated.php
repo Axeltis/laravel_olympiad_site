@@ -18,14 +18,14 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return mixed
      */
-    use RedirectToHome;
+
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-               redirect($this->redirectTo());
+             return redirect()->route(Auth::user()->role->slug.'.home');
             }
         }
 

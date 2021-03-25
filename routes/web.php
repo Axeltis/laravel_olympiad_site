@@ -22,8 +22,8 @@ Route::get('/email/verify', function () {
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     if ($request->authorize()) {
         $request->fulfill();
-        redirect(route($request->user()->role->slug . '.home'));
-    } else redirect(route('login'));
+       return redirect(route($request->user()->role->slug . '.home'));
+    } else return redirect(route('login'));
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 Route::post('/email/verification-notification', function (Request $request) {

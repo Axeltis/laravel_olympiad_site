@@ -11,14 +11,7 @@ class Role extends Model
 
     protected $table = 'roles';
     protected  $primaryKey = 'id';
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\belongsToMany
-    {
-        return $this->belongsToMany(Permission::class);
-    }
-    public function has_permission($slug)
-    {
-        return $this->permissions()->contains(Permission::where('slug',$slug)->value('id'));
-    }
+
     public function users(): \Illuminate\Database\Eloquent\Relations\hasMany
     {
         return $this->hasMany(User::class);
