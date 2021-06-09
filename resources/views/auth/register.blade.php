@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-left">
             <div class="col-md-12">
                 <div class="card bg-dark text-white border-green">
@@ -15,44 +15,11 @@
                             <div class="row no-gutters">
                                 <div class="col">
                                     <div class="form-group row">
-                                        <label for="name"
-                                               class="col-md-4 col-form-label text-md-right">{{ __('Имя') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="name" type="text"
-                                                   class="form-control @error('name') is-invalid @enderror" name="name"
-                                                   value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                            @error('name')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="middlename"
-                                               class="col-md-4 col-form-label text-md-right">{{ __('Отчество') }}</label>
-
-                                        <div class="col-md-6">
-                                            <input id="middlename" type="text"
-                                                   class="form-control @error('middlename') is-invalid @enderror"
-                                                   name="middlename" value="{{ old('middlename') }}" required
-                                                   autocomplete="middlename" autofocus>
-
-                                            @error('middlename')
-                                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
                                         <label for="surname"
                                                class="col-md-4 col-form-label text-md-right">{{ __('Фамилия') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="surname" type="text"
+                                            <input placeholder="Иванов" id="surname" type="text"
                                                    class="form-control @error('surname') is-invalid @enderror"
                                                    name="surname" value="{{ old('surname') }}" required
                                                    autocomplete="surname" autofocus>
@@ -64,12 +31,49 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                   
+                                    
+				    <div class="form-group row">
+                                        <label for="name"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Имя') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input placeholder="Иван" id="name" type="text"
+                                                   class="form-control @error('name') is-invalid @enderror" name="name"
+                                                   value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                            @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+				   <div class="form-group row">
+                                        <label for="middlename"
+                                               class="col-md-4 col-form-label text-md-right">{{ __('Отчество') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input placeholder="Иванович" id="middlename" type="text"
+                                                   class="form-control @error('middlename') is-invalid @enderror"
+                                                   name="middlename" value="{{ old('middlename') }}" required
+                                                   autocomplete="middlename" autofocus>
+
+                                            @error('middlename')
+                                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
                                     <div class="form-group row">
                                         <label for="phone"
                                                class="col-md-4 col-form-label text-md-right">{{ __('Телефон') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="phone" type="text"
+                                            <input placeholder="89022552233" id="phone" type="text"
                                                    class="form-control @error('phone') is-invalid @enderror"
                                                    name="phone"
                                                    value="{{ old('phone') }}" required autocomplete="phone">
@@ -86,7 +90,7 @@
                                                class="col-md-4 col-form-label text-md-right">{{ __('E-Mail адрес') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email"
+                                            <input placeholder="example@mail.com" id="email" type="email"
                                                    class="form-control @error('email') is-invalid @enderror"
                                                    name="email"
                                                    value="{{ old('email') }}" required autocomplete="email">
@@ -102,7 +106,7 @@
                                         <label for="birth_date"
                                                class="col-md-4 col-form-label text-md-right">{{ __('Дата рождения') }}</label>
                                         <div class="col-md-6">
-                                            <input id="birth_date" name="birth_date" type="date"
+                                            <input  id="birth_date" name="birth_date" type="date"
                                                    class="form-control @error('birth_date') is-invalid @enderror"
                                                    value="{{ old('birth_date') }}" required autocomplete="birth_date">
                                             @error('birth_date')
@@ -117,7 +121,7 @@
                                                class="col-md-4 col-form-label text-md-right">{{ __('Пароль') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password" type="password"
+                                            <input placeholder="password1234" id="password" type="password"
                                                    class="form-control @error('password') is-invalid @enderror"
                                                    name="password" required autocomplete="new-password">
 
@@ -134,7 +138,7 @@
                                                class="col-md-4 col-form-label text-md-right">{{ __('Повторите пароль') }}</label>
 
                                         <div class="col-md-6">
-                                            <input id="password-confirm" type="password" class="form-control"
+                                            <input placeholder="password1234" id="password-confirm" type="password" class="form-control"
                                                    name="password_confirmation" required autocomplete="new-password">
                                         </div>
                                     </div>
@@ -147,15 +151,17 @@
                                     <div class="card bg-dark text-light border-light">
                                         <div class="card-header">
                                             <div class="row">
+				
+
                                                 <label for="type_select"
                                                        class="col-md-4 col-form-label text-md-right">{{ __('Тип участника') }}</label>
-                                                <div class="col-md-8">
+                                                <div class="col-md-5">
                                                     <select id="type_select" name="type_select" class="form-control">
                                                         <option  selected value="student">Студент</option>
                                                         <option value="pupil">Школьник</option>
                                                         <option value="teacher">Преподаватель</option>
                                                     </select>
-
+					
                                                 </div>
                                             </div>
                                         </div>
@@ -164,10 +170,10 @@
                                             <div id="student">
                                                 <div class="form-group row">
                                                     <label for="college"
-                                                           class="col-md-4 col-form-label text-md-right">{{ __('Колледж') }}</label>
+                                                           class="col-md-4 col-form-label text-md-right">{{ __('Учебное заведение') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="student_college" type="text"
+                                                        <input placeholder="Ульяновский авиационный колледж - МЦК" id="student_college" type="text"
                                                                class="form-control @error('student_college') is-invalid @enderror"
                                                                name="student_college"
                                                                value="{{ old('student_college') }}" required
@@ -184,8 +190,8 @@
                                                     <label for="student_speciality"
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Специальность') }}</label>
 
-                                                    <div class="col-md-6">
-                                                        <input id="student_speciality" type="text"
+                                                    <div  class="col-md-6">
+                                                        <input placeholder="Программист" id="student_speciality" type="text"
                                                                class="form-control @error('student_speciality') is-invalid @enderror"
                                                                name="student_speciality"
                                                                value="{{ old('student_speciality') }}" required
@@ -219,7 +225,7 @@
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="teacher_organization" type="text"
+                                                        <input placeholder="Ульяновский авиационный колледж - МЦК"  id="teacher_organization" type="text"
                                                                class="form-control @error('teacher_organization') is-invalid @enderror"
                                                                name="teacher_organization"
                                                                value="{{ old('teacher_organization') }}" required
@@ -237,7 +243,7 @@
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Должность') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="teacher_position" type="text"
+                                                        <input placeholder="Преподаватель" id="teacher_position" type="text"
                                                                class="form-control @error('teacher_position') is-invalid @enderror"
                                                                name="teacher_position"
                                                                value="{{ old('teacher_position') }}" required
@@ -257,7 +263,7 @@
                                                            class="col-md-4 col-form-label text-md-right">{{ __('Образовательная организация') }}</label>
 
                                                     <div class="col-md-6">
-                                                        <input id="pupil_organization" type="text"
+                                                        <input placeholder="МБОУ СОШ №81" id="pupil_organization" type="text"
                                                                class="form-control @error('organization') is-invalid @enderror"
                                                                name="pupil_organization"
                                                                value="{{ old('pupil_organization') }}" required

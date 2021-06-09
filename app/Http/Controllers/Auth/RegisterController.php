@@ -91,7 +91,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
         $role = Role::where('slug', 'user')->first();
-        $status = UserStatus::where('slug', 'waiting')->first();
+        $status = UserStatus::where('slug', 'active')->first();
         $user->role()->associate($role);
         $user->status()->associate($status);
         switch($data['type_select']) {

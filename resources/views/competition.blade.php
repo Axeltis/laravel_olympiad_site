@@ -27,11 +27,11 @@
         </div>
         <hr>
 
-        <div class="card bg-dark text-light  border-green mt-4" style="border-radius: 12px; ">
+        <div class="card bg-dark text-light  border-green mt-4"  style="border-radius: 12px;">
             <div class="card-header">
                 <h4><p class="font-weight-bold">Описание направления</p></h4>
             </div>
-            <div class="card-body bg-light text-dark" style="border-radius: 12px; ">
+            <div class="card-body text-dark"  style="border-radius: 12px; background-color: #FFFFFF;">
                 <h5><p>{!! $competition->description !!}</p></h5>
             </div>
         </div>

@@ -14,10 +14,20 @@ class EnsureEmailIsVerified
 
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check())
+        if (Auth::check()){
+
+	if(Auth::user()->status->slug=='blocked') {
+
+    $request->session()->invalidate();
+
+    return redirect()->route('login');
+	}
+
         if (Auth::user()->status->slug == 'waiting') {
             return Redirect::guest(URL::route('verification.notice'));
         }
+
+	}
 
         return $next($request);
     }

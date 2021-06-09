@@ -24,9 +24,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+
     <style>
+   
         .border-green {
-            border: medium double #457f57;
+            border: medium solid #457f57;
         }
 
         dl,
@@ -37,7 +39,22 @@
             list-style: none;
         }
 
-        .imgPreview img {
+p {
+background-color: transparent;
+}
+
+   	body {
+  /* The image used */
+  background-image: url("https://sun9-1.userapi.com/impg/qOQcXxlBaQBxApjRuu6B_wRNpCARp-ChhkXpcg/8VYgrvsI4Oo.jpg?size=1280x853&quality=96&sign=f44a98a4027100243347ce393be3eb6a&type=album");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}        .imgPreview img {
             padding: 8px;
             max-width: 100px;
         }
@@ -87,11 +104,16 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap rounded-pill border-green "
          style="height: 40pt; ">
+
+
         <div class="container  ">
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a>
-                <div class="btn-group">
+                <!-- Left Side Of Navbar <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a> -->
+       
+ <!--<img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 9.1%; width: 9.1%; position:relative; right:10.8%; ">-->
+  <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 4.4%; width:4.4%; position:relative; right:10.8%; ">
+                <div class="btn-group" >
                     <a type="button"  href="{{route('about')}}" class="btn  @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
                        class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-success @else btn-secondary @endif"
@@ -146,7 +168,62 @@
     <main class="py-4">
         @yield('content')
     </main>
+
+           
+
+
+
+
 </div>
+<div class="container-fluid">
+<footer class="footer  pt-md-5 border-top"  style="border-radius: 30px;">
+        <div class="row">
+
+<div class="col-12 col-lg" style="text-align: right;">
+            <h4 class="text-light">Контакты</h4>
+<h5>
+           
+	        <ul class="text-small" >
+
+             <li> <a class="text-light" href="https://www.instagram.com/uaviak_73/" target="_blank" ><i class="fa  fa-instagram" aria-hidden="true"></i> Instagram</a></li>
+             <li> <a class="text-light" href="https://vk.com/uaviakmck" target="_blank" ><i class="fa  fa-vk" aria-hidden="true"></i> ВКонтакте </a></li>
+             <li> <a class="text-light" href="https://uaviak.ru/" target="_blank" ><img src="https://i.ibb.co/Ybg2f20/logo.png" style="width:10%; height: 5%"> УАвиаК - МЦК</a> </li>
+  
+</ul>
+<p>
+<ul class="text-small text-info text-light" >
+  <li>Мардамшина Анна Александровна</li>
+ <li>+79603757217</li>
+ <li>mardamshinaa@bk.ru</li>
+</ul>
+<p><p><p><p><p><p><p><p><p><p><p>
+</h5>
+          </div>
+
+<div class="col-12 col-lg">
+            <h4  class="text-light">Наши партнеры</h4>
+<h5>
+            <ul class="text-small">
+	      <li style="padding-right:7rem;"><a class="text-light" href="https://atr73.ru/" target="_blank">Агенство технологического развития</a></li>
+              <li style="padding-right:7rem;"><a class="text-light" href="https://www.simbirsoft.com/" target="_blank" ><img src="https://i.ibb.co/XkXB2Sz/logo.png" style="width:20%;height:auto" ></a></li>
+              <li style="padding-right:7rem;"><a class="text-light" href="http://intelsi.ru/" target="_blank" >Интелси</a></li>
+              <li style="padding-right:7rem;"><a class="text-light" href="https://ibs.ru/" target="_blank" ><img src="https://i.ibb.co/4jXymTb/ibs-logo.png" style="width:12%;height:auto" ></a></li>
+            </ul>
+</h5>
+          </div>
+   
+
+
+          <div class="col-6 col-md">
+                 </div>
+
+
+          
+           
+
+        </div>
+   </footer>
+  </div>
 </body>
 
 </html>

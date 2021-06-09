@@ -24,6 +24,8 @@ class AccessRoute
     public function handle(Request $request, Closure $next, $policy, $role = null)
     {
         if (Auth::check()) {
+
+
             $user = Auth::user();
             $parameters = $request->route()->parameters();
 

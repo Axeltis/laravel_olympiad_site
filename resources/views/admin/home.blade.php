@@ -4,9 +4,9 @@
     <div class="container">
         <div class="row justify-content-left mt-2">
             <div class="col-md-12">
-                <div class="card bg-dark text-light  border-green">
+                <div class="card bg-dark text-light  border-green" style="border-radius: 12px; ">
                     <div class="card-header"><h4>{{ __('Список направлений') }}</h4></div>
-                    <div class="card-body">
+                    <div class="card-body" style="border-radius: 12px; ">
                         <div class="row-md-12">
                             <div class="d-flex flex-row-reverse bd-highlight">
                                 <a href="{{ route('admin.competition_form') }}" class="text-success"><i
@@ -108,9 +108,9 @@
         </div>
         <div class="row justify-content-left mt-2">
             <div class="col-md-12">
-                <div class="card bg-dark text-light  border-green">
+                <div class="card bg-dark text-light  border-green" style="border-radius: 12px; ">
                     <div class="card-header"><h4>{{ __('Список пользователей') }}</h4></div>
-                    <div class="card-body">
+                    <div class="card-body" style="border-radius: 12px; ">
 
                         <div class="row-md-12">
                             <div class="d-flex flex-row-reverse bd-highlight">

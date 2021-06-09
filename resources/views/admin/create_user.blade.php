@@ -300,6 +300,7 @@
                                         <h3>Роль пользователя</h3>
                                         <div class="container">
                                             @foreach($roles as $role)
+@if($role->slug!='moderator')
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="role"
                                                            id="{{ $role->slug }}" value="{{ $role->slug }}"
@@ -308,6 +309,7 @@
                                                         {{ $role->name }}
                                                     </label>
                                                 </div>
+@endif
                                             @endforeach
                                         </div>
                                     </div>
@@ -315,6 +317,7 @@
                                         <h3>Статус пользователя</h3>
                                         <div class="container">
                                             @foreach($statuses as $status)
+@if($status->slug!='waiting')
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="status"
                                                            id="{{ $status->slug }}" value="{{ $status->slug }}"
@@ -323,6 +326,7 @@
                                                         {{ $status->name }}
                                                     </label>
                                                 </div>
+@endif
                                             @endforeach
                                         </div>
                                     </div>

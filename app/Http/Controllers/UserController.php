@@ -26,9 +26,9 @@ class UserController extends Controller
         $files = Storage::disk('public')
                 ->files($path);
         Storage::disk('public')->delete($files);
-
-
-        $file = $request->file('answer_file');
+	$file = $request->file('answer_file');
+	//dd($request->user()->id.'.'. $file->extension());
+        
        // Storage::disk('public')->put($path,$file);
         Storage::disk('public')->putFileAs($path,$file,$request->user()->id.'.'. $file->extension());
         return redirect()->back();

@@ -30,9 +30,9 @@ class Competition extends Model
         return array_merge([
             'name' => ['required', 'string', 'max:100'],
             'user_type' => ['required', 'string', 'max:40'],
-            'preview_text' => ['required', 'string', 'max:3000'],
-            'description' => ['required', 'string', 'max:8000'],
-            'teaching_materials' => ['required', 'string', 'max:8000'],
+            'preview_text' => ['required', 'string', 'max:18000'],
+            'description' => ['required', 'string', 'max:18000'],
+            'teaching_materials' => ['required', 'string', 'max:18000'],
             'max_points' => ['required', 'int', 'min:0'],
             'video' => ['file', 'mimes:avi,mp4,mov,ogg,qt,ogx,oga,ogv,webm'],
         ],

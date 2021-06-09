@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Auth;
 class CompetitionsController extends Controller
 {
     public function about()
@@ -18,11 +18,22 @@ class CompetitionsController extends Controller
         return view('about');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $competitions = Competition::all();
+if(Auth::check()){
+//$type_name =  strtolower(Auth::user()->type_name);
+//$type_name =  substr($type_name, strrpos($type_name, "\\")+1,strlen($type_name) );
+if(!empty(Auth::user()->type_name))
+        $competitions = Competition::where( 'user_type',Auth::user()->type_name)->get();
+else
+$competitions = Competition::all();
 
+}
+else{
+	$competitions = Competition::all();
+}
         return view('competitions', ['competitions' => $competitions]);
+
     }
 
     public function schedule()
@@ -64,8 +75,10 @@ class CompetitionsController extends Controller
 
     public function deleteHolding(Request $request, $holding_id): \Illuminate\Http\RedirectResponse
     {
-        HoldingCompetition::find($holding_id)->delete();
-
+	$holding =HoldingCompetition::find($holding_id);
+	\File::deleteDirectory(public_path(Competition::answers_folder_path.$holding_id));
+        $holding ->delete();
+	
         return redirect()->back();
     }
 
@@ -137,6 +150,7 @@ class CompetitionsController extends Controller
                 return redirect(route('admin.competition_materials_form', ['competition_id' => $competition_id, 'data' => $data]));
                 break;
             case 'all':
+		#dd($this->validator($request->all())->errors()->first());
                 $this->validator($request->all())->validate();
                 $competition = Competition::find($competition_id);
                 if ($competition) {
@@ -160,7 +174,9 @@ class CompetitionsController extends Controller
                 $competition->save();
                 if (array_key_exists('video', $request->all())) {
                     $video = $request->file('video');
+		    $extension = $request->file('video')->extension();
                     $files = Storage::disk('public')->files(Competition::videos_folder_path . $competition->id);
+
                     Storage::disk('public')->delete($files);
                     $video->storeAs(Competition::videos_folder_path, $competition->id, 'public');
                 }
