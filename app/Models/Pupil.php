@@ -25,7 +25,7 @@ class Pupil extends Model
     {
         return array_merge([
             'pupil_organization' => ['required', 'string', 'max:70'],
-            'pupil_class' => ['required', 'int', 'max:11', 'min:1'],
+            'pupil_class' => ['required', 'int', 'max:8', 'min:6'],
         ],
             $merge);
     }
