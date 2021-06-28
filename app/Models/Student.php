@@ -29,7 +29,7 @@ class Student extends Model
         return array_merge([
             'student_college' => ['required', 'string', 'max:70'],
             'student_speciality' => ['required', 'string', 'max:70'],
-            'student_course' => ['required', 'int', 'max:6', 'min:1'],
+            'student_course' => ['required', 'int', 'max:3', 'min:1'],
         ],
             $merge);
     }
