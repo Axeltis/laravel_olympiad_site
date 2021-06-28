@@ -135,7 +135,7 @@
                                             <div id="student">
                                                 @include('components.fields.common_text',['label'=>'Колледж','value' =>$user->type->college??'','field_name'=>'student_college'])
                                                 @include('components.fields.common_text',['label'=>'Специальность','value' =>$user->type->speciality??'','field_name'=>'student_speciality'])
-                                                @include('components.fields.common_num_select',['label'=>'Курс','value' =>$user->type->course??'','field_name'=>'student_course','max_num'=>4,'min_num'=>1])
+                                                @include('components.fields.common_num_select',['label'=>'Курс','value' =>$user->type->course??'','field_name'=>'student_course','max_num'=>3,'min_num'=>1])
 
                                             </div>
                                             <div id="teacher">
@@ -144,7 +144,7 @@
                                             </div>
                                             <div id="pupil">
                                                 @include('components.fields.common_text',['label'=>'Организация','value' =>$user->type->organization??'','field_name'=>'pupil_organization'])
-                                                @include('components.fields.common_num_select',['label'=>'Класс','value' =>$user->type->class??'','field_name'=>'pupil_class','max_num'=>11,'min_num'=>1])
+                                                @include('components.fields.common_num_select',['label'=>'Класс','value' =>$user->type->class??'','field_name'=>'pupil_class','max_num'=>8,'min_num'=>6])
 
                                             </div>
 
