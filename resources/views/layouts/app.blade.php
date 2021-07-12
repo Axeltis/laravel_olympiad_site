@@ -35,6 +35,19 @@
   --underline-color-hover: #198754;
   --underline-transition: 0.5s;
 }
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 1rem!important;
+    margin: 20px !important;
+}
+
+
+
 a[type="button"] {
   color: var(--color)!important;
   text-decoration: none;
@@ -58,17 +71,7 @@ a[type="button"]:hover {
 }
 
 
-.navbar {
-    position: relative;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    padding: 0 1rem;
-  
-}
+
         .border-green {
             border: medium solid #457f57;
         }
