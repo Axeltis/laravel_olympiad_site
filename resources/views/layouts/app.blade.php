@@ -26,7 +26,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
-   
+   :root {
+  --bg: white;
+  --color: black;
+  --underline-width: 2px;
+  --underline-block-width: 20px;
+  --underline-color: hsla(180, 100%, 50%, 0.5);
+  --underline-color-hover: #198754;
+  --underline-transition: 0.5s;
+}
+a[type="button"] {
+  color: var(--color)!important;
+  text-decoration: none;
+
+  background-size: var(--underline-block-width) var(--underline-width),
+    100% var(--underline-width);
+  background-repeat: no-repeat;
+  background-position-x: calc(var(--underline-block-width) * -1), 0;
+  background-position-y: 100%;
+  transition: background-position-x var(--underline-transition);
+}
+
+a[type="button"]:hover {
+  background-image: linear-gradient(90deg, var(--bg), var(--bg)),
+    linear-gradient(
+      90deg,
+      var(--underline-color-hover),
+      var(--underline-color-hover)
+    );
+  background-position-x: calc(100% + var(--underline-block-width)), 0;
+}
         .border-green {
             border: medium solid #457f57;
         }
@@ -186,30 +215,31 @@ background-color: transparent;
     
   <nav class="navbar navbar-expand-sm shadow-sm border rounded border-success ">
         <div class="">
-            <a class="navbar-brand" href="#"><img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50></a>
-            </div>
+    <a class="navbar-brand" href="#">
+       <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50>
+    </a>
+  </div>
 
-        <div class="navbar-nav flex">
-                    <a type="button"  href="{{route('about')}}" class="btn @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
+                <div class="navbar-nav flex" >
+                    <a type="button"  href="{{route('about')}}" class="btn link-secondary @if(\Route::current()->getName()=='about') btn-outline-success @else btn-outline-secondary @endif"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
-                       class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-success @else btn-secondary @endif"
-                       autocomplete="off"> 
-                       Расписание</a>
+                       class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-outline-success @else btn-outline-secondary @endif"
+                       autocomplete="off"> Расписание</a>
                     <a type="button" href="{{route('competitions')}}"
-                       class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif">
-                       Направления</a>
+                       class="btn @if(\Route::current()->getName()=='competitions') btn-outline-success @else btn-outline-secondary @endif"
+                    >Направления</a>
                     <a type="button"
-                       @if(!Auth::check())   class="btn  btn-secondary disabled" @else
-                       class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
+                       @if(!Auth::check())   class="btn  btn-outline-secondary disabled" @else
+                       class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-outline-success @else btn-outline-secondary @endif"
                        href="{{ route(Auth::user()->role->slug.'.home')}}"
-                        @endif>
-                        {{ __('Личный кабинет') }}</a>
+                        @endif
+                    >{{ __('Личный кабинет') }}</a>
                     <a type="button"
-                       @if(!Auth::check())   class="btn  btn-secondary disabled" @else
-                       class="btn @if(\Route::current()->getName() == 'user.profile') btn-success @else btn-secondary @endif"
+                       @if(!Auth::check())   class="btn  btn-outline-secondary disabled" @else
+                       class="btn @if(\Route::current()->getName() == 'user.profile') btn-outline-success @else btn-outline-secondary @endif"
                        href="{{ route('user.profile',['user_id'=>Auth::user()->id])}}"
-                        @endif>
-                        {{ __('Профиль') }}</a>
+                        @endif
+                    >{{ __('Профиль') }}</a>
                 </div>
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto  ">
