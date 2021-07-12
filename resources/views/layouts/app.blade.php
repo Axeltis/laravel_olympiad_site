@@ -184,32 +184,37 @@ background-color: transparent;
 
 <div id="app">
     
-<nav class="navbar navbar-expand-sm shadow-sm border rounded border-success ">
-        <div class="">
-            <a class="navbar-brand" href="#"><img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50></a>
-            </div>
+   <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap rounded-pill border-green "
+         style="height: 40pt; ">
 
-        <div class="navbar-nav flex" >
-                    <a type="button"  href="{{route('about')}}" class=" btn nav-link @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
+
+        <div class="container  ">
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a> -->
+       
+ <!--<img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 9.1%; width: 9.1%; position:relative; right:10.8%; ">-->
+  <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 4.4%; width:4.4%; position:relative; right:10.8%; ">
+                <div class="btn-group" >
+                    <a type="button"  href="{{route('about')}}" class="btn  @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
                        class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-success @else btn-secondary @endif"
-                       autocomplete="off"> 
-                       Расписание</a>
+                       autocomplete="off"> Расписание</a>
                     <a type="button" href="{{route('competitions')}}"
-                       class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif">
-                       Направления</a>
+                       class="btn @if(\Route::current()->getName()=='competitions') btn-success @else btn-secondary @endif"
+                    >Направления</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                        class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-success @else btn-secondary @endif"
                        href="{{ route(Auth::user()->role->slug.'.home')}}"
-                        @endif>
-                        {{ __('Личный кабинет') }}</a>
+                        @endif
+                    >{{ __('Личный кабинет') }}</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-secondary disabled" @else
                        class="btn @if(\Route::current()->getName() == 'user.profile') btn-success @else btn-secondary @endif"
                        href="{{ route('user.profile',['user_id'=>Auth::user()->id])}}"
-                        @endif>
-                        {{ __('Профиль') }}</a>
+                        @endif
+                    >{{ __('Профиль') }}</a>
                 </div>
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto  ">
@@ -237,8 +242,11 @@ background-color: transparent;
                     @endguest
 
                 </ul>
-        
+            </div>
+
+        </div>
     </nav>
+
     <main class="py-4">
         @yield('content')
     </main>
