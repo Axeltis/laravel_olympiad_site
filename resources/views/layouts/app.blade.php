@@ -184,15 +184,17 @@ background-color: transparent;
 
 <div id="app">
     
-<nav class="navbar navbar-expand-sm shadow-sm  border rounded border-success ">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-md-nowrap rounded-pill border-green "
+         style="height: 40pt; ">
 
 
-        <div class="container">
-    <a class="navbar-brand" href="#">
-       <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50>
-    </a>
-  </div>
+        <div class="container  ">
 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar <a class="navbar-brand" href="#">{{env('APP_NAME')}}</a> -->
+       
+ <!--<img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 9.1%; width: 9.1%; position:relative; right:10.8%; ">-->
+  <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" style=" height: 4.4%; width:4.4%; position:relative; right:10.8%; ">
                 <div class="btn-group" >
                     <a type="button"  href="{{route('about')}}" class="btn  @if(\Route::current()->getName()=='about') btn-success @else btn-secondary @endif"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
@@ -240,7 +242,9 @@ background-color: transparent;
                     @endguest
 
                 </ul>
-        
+            </div>
+
+        </div>
     </nav>
     <main class="py-4">
         @yield('content')
