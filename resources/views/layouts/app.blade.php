@@ -94,6 +94,86 @@ background-color: transparent;
         .bg-dark-green {
             background-color: seagreen;
         }
+        
+            .facts{
+        margin: 0 auto;
+        border-radius: 12px;
+        width:100%;
+        height:200px;
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        color: aliceblue;
+        font-size: 1.7rem;
+    }
+    .customLIbullets li::marker{
+        font-size: 1.7rem;
+        content: "»";
+        font-weight: 800;
+    }
+    li{
+        font-size: 1.65rem;
+        padding-left: 1.4em
+    }
+  .card-body  p{
+        text-indent: 1.5em;
+        font-size: 1.7rem
+    }
+    @media screen  and (max-width: 765px) {
+        .customLIbullets li::marker{
+        font-size: .81rem;
+        content: "»";
+        font-weight: 800;
+    }
+    li{
+        padding-left: 1.1em;
+        font-size: .81rem;
+    }
+  .card-body  p{
+        text-indent: 1.1em;
+        font-size: .91rem
+    }
+    .facts{
+        margin: 0 auto;
+        border-radius: 12px;
+        width:75%;
+        height:200px;
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        color: aliceblue;
+        font-size: .85rem;
+    }
+    }
+    @media screen  and (max-width: 1024px) and (min-width:765px) {
+        .customLIbullets li::marker{
+        font-size: 1.5rem;
+        content: "»";
+        font-weight: 800;
+    }
+    li{
+        font-size: 1.25rem;
+        padding-left: 1.2em
+    }
+  .card-body  p{
+        text-indent: 1.1em;
+        font-size: 1.3rem
+    }
+    .facts{
+        margin: 0 auto;
+        border-radius: 12px;
+        width:100%;
+        height:200px;
+        align-items: center;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        color: aliceblue;
+        font-size: 1.2rem;
+    }
+    }
     </style>
 
 
