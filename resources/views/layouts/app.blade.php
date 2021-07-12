@@ -44,7 +44,7 @@
     margin: 20px !important;
 }
 
-.carousel-inner > .item {
+.carousel-inner{
     -webkit-transition: 5s linear left;
     -moz-transition: 5s linear left;
     -o-transition: 5s linear left;
