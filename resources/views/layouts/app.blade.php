@@ -230,7 +230,7 @@ background-color: transparent;
                     >Направления</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-outline-secondary disabled" @else
-                       class="btnbtn-outline-success"
+                       class="btn btn-outline-success"
                        href="{{ route(Auth::user()->role->slug.'.home')}}"
                         @endif
                     >{{ __('Личный кабинет') }}</a>
