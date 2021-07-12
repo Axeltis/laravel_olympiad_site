@@ -233,7 +233,7 @@ background-color: transparent;
        <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50>
     </a>
   </div>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="true" >
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" >
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse show" id="navbarToggler" >
