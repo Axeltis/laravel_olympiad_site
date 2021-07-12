@@ -221,16 +221,16 @@ background-color: transparent;
   </div>
 
                 <div class="navbar-nav flex" >
-                    <a type="button"  href="{{route('about')}}" class="btn link-secondary @if(\Route::current()->getName()=='about') btn-outline-success @else btn-outline-secondary @endif"> О конкурсе</a>
+                    <a type="button"  href="{{route('about')}}" class="btn btn-outline-success"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
-                       class="btn @if(\Route::current()->getName()=='competitions.schedule') btn-outline-success @else btn-outline-secondary @endif"
+                       class="btn btn-outline-success"
                        autocomplete="off"> Расписание</a>
                     <a type="button" href="{{route('competitions')}}"
-                       class="btn @if(\Route::current()->getName()=='competitions') btn-outline-success @else btn-outline-secondary @endif"
+                       class="btn btn-outline-success "
                     >Направления</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-outline-secondary disabled" @else
-                       class="btn @if(\Route::current()->getName() == Auth::user()->role->slug.'.home') btn-outline-success @else btn-outline-secondary @endif"
+                       class="btnbtn-outline-success"
                        href="{{ route(Auth::user()->role->slug.'.home')}}"
                         @endif
                     >{{ __('Личный кабинет') }}</a>
