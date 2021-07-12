@@ -38,7 +38,7 @@
 a[type="button"] {
   color: var(--color)!important;
   text-decoration: none;
-
+  margin-left: .2em;
   background-size: var(--underline-block-width) var(--underline-width),
     100% var(--underline-width);
   background-repeat: no-repeat;
@@ -55,6 +55,19 @@ a[type="button"]:hover {
       var(--underline-color-hover)
     );
   background-position-x: calc(100% + var(--underline-block-width)), 0;
+}
+
+
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    padding: 0 1rem;
+  
 }
         .border-green {
             border: medium solid #457f57;
