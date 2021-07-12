@@ -227,13 +227,16 @@ background-color: transparent;
 
 <div id="app">
     
-  <nav class="navbar navbar-expand-sm shadow-sm border rounded border-success" style="padding:0 1rem!important">
+  <nav class="navbar navbar-expand-sm navbar-dark shadow-sm border rounded border-success" style="padding:0 1rem!important">
         <div class="">
     <a class="navbar-brand" href="#">
        <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50>
     </a>
   </div>
-
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="true" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse show" id="navbarToggler" >
                 <div class="navbar-nav flex" >
                     <a type="button"  href="{{route('about')}}" class="btn btn-outline-success"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
@@ -281,7 +284,7 @@ background-color: transparent;
                     @endguest
 
                 </ul>
-        
+        </div>
     </nav>
 
 
