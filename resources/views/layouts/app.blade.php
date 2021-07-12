@@ -184,7 +184,7 @@ background-color: transparent;
 
 <div id="app">
     
-  nav class="navbar navbar-expand-sm shadow-sm border rounded border-success ">
+  <nav class="navbar navbar-expand-sm shadow-sm border rounded border-success ">
         <div class="">
             <a class="navbar-brand" href="#"><img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50></a>
             </div>
