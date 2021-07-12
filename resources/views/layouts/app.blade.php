@@ -237,6 +237,10 @@ href="{{ route('register') }}">{{ __('Регистрация') }}</a>
 
 </ul>
 
+
+</DIV>
+</DIV>
+</DIV>
 </nav>
     <main class="py-4">
         @yield('content')
