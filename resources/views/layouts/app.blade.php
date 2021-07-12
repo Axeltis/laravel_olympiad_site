@@ -44,7 +44,12 @@
     margin: 20px !important;
 }
 
-
+.carousel-inner > .item {
+    -webkit-transition: 5s linear left;
+    -moz-transition: 5s linear left;
+    -o-transition: 5s linear left;
+    transition: 5s linear left;
+}
 
 a[type="button"] {
   color: var(--color)!important;
