@@ -324,7 +324,7 @@ background-color: transparent;
                     >{{ __('Личный кабинет') }}</a>
                     <a type="button"
                        @if(!Auth::check())   class="btn  btn-outline-secondary disabled" @else
-                       class="btn @if(\Route::current()->getName() == 'user.profile') btn-outline-success @else btn-outline-secondary @endif"
+                       class="btn @if(\Route::current()->getName() == 'user.profile') btn-outline-success @else btn  btn-outline-light @endif"
                        href="{{ route('user.profile',['user_id'=>Auth::user()->id])}}"
                         @endif
                     >{{ __('Профиль') }}</a>
