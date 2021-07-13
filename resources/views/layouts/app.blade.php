@@ -178,28 +178,29 @@ background-color: transparent;
     min-height: calc(100vh - 200px);
     }
     
-    .Footer{
+   .footer {
   background: #a3ceac;
-  color: #fff;
-  width: 100%;
-  height: 250px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column; 
-  align-items: center;
-  margin-top: 5vh;
-  border-top: 1px solid #00a651;
+  color: white;
 }
-        .col a{
-            text-decoration: none;
-            color: #fff;
-        }
-        .col:nth-child(2){
-            border-right:1px solid white ;
-        }
-        .col:nth-child(3){
-            border-right:1px solid white ;
-        }
+    .footer a{
+        color: #fff;
+        text-decoration: none;
+        
+    }
+.footer .about-company i {
+  font-size: 25px;
+}
+.footer .about-company a {
+  color: white;
+  transition: color 0.2s;
+}
+
+.footer .location i {
+  font-size: 18px;
+}
+.footer .copyright p {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
     @media screen  and (max-width: 765px) {
         .customLIbullets li::marker{
         font-size: .75rem;
@@ -273,7 +274,7 @@ background-color: transparent;
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse show" id="navbarToggler" >
+    <div class="navbar-collapse collapse hide" id="navbarToggler" >
                 <div class="navbar-nav flex" >
                     <a type="button"  href="{{route('about')}}" class="btn btn-outline-success"> О конкурсе</a>
                     <a type="button" href="{{ route('competitions.schedule') }}"
@@ -329,32 +330,36 @@ background-color: transparent;
         @yield('content')
     </main>
 
-     <div class="Footer">
-    <div class="row row-cols-5 w-100 ">
-        <div class="col"></div>
-            <div class="col">
-                <p>Наши партнеры</p>
-                  <a href="http://atr73.ru">              <img class="mb-2" src="http://atr73.ru/wp-content/uploads/2019/10/Untitled-2.png" width="150"></a><br>
+       <div class="mt-5 pt-5 pb-5 footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5 col-xs-12 about-company">
+              <h2>Наши партнеры</h2>
+              <a href="http://atr73.ru">              <img class="mb-2" src="http://atr73.ru/wp-content/uploads/2019/10/Untitled-2.png" width="150"></a><br>
                   <a href="http://intelsi.ru">            <img class="mb-2" src="http://intelsi.ru/images/logo_01-02.svg?crc=4214952120" width="150"></a><br>
                   <a href="https://www.simbirsoft.com">   <img class="mb-2" src="https://www.simbirsoft.com/local/templates/.default/img/ss-logo-symbol-blue-216-54.png" width="150"></a><br>
                   <a href="https://ibs.ru/">              <img src="https://ibs.ru/local/templates/ibs-redesign/assets/images/ibs-logo.svg"  width="50"></a><br>
             </div>
-            <div class="col">
-                <p>Контакты</p>
-                <p>Мардамшина Анна Александровна</p><br>
-                <a href="tel:+79603757217"><i class="bi bi-telephone me-2"></i>+79603757217</a><br>
-                <a href="mailto:mardamshinaa@bk.ru"><i class="bi bi-envelope me-2"></i>mardamshinaa@bk.ru</a><br>
+            <div class="col-lg-3 col-xs-12 links">
+              <h4 class="mt-lg-0 mt-sm-3">Контакты</h4>
+              <p>Мардамшина Анна Александровна</p>
+              <a href="tel:+79603757217"><i class="bi bi-telephone me-2"></i>+79603757217</a><br>
+              <a href="mailto:mardamshinaa@bk.ru"><i class="bi bi-envelope me-2"></i>mardamshinaa@bk.ru</a><br>
             </div>
-            <div class="col">
-                <p>Мы в социальных сетях</p>
-                <a href="https://vk.com/uaviakmck"><img class="me-2"src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/192px-VK.com-logo.svg.png" width="17">ВКонтакте</a><br>
-                <a href="https://www.instagram.com/uaviak_73/"><i class="bi bi-instagram me-2"></i>Instagram</a><br>
-                <a href="https://uaviak.ru/"><i class="bi bi-globe2 me-2"></i>УАвиаК - МЦК</a>
+            <div class="col-lg-4 col-xs-12 location">
+              <h4 class="mt-lg-0 mt-sm-4">Мы в социальных сетях</h4>
+              <a href="https://vk.com/uaviakmck"><img class="me-2"src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/192px-VK.com-logo.svg.png" width="17">ВКонтакте</a><br>
+              <a href="https://www.instagram.com/uaviak_73/"><i class="bi bi-instagram me-2"></i>Instagram</a><br>
+              <a href="https://uaviak.ru/"><i class="bi bi-globe2 me-2"></i>УАвиаК - МЦК</a>
             </div>
-            <div class="col"></div>
+          </div>
+          <div class="row mt-5">
+            <div class="col copyright">
+              <p class=""><small class="text-white-50">© 2021. All Rights Reserved.</small></p>
+            </div>
+          </div>
         </div>
-
-    </div>      
+        </div>
 
 
 
