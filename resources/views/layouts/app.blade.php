@@ -174,7 +174,9 @@ background-color: transparent;
         font-size: 1.4rem
     }
     
-    
+    main{
+    min-height: calc(100vh - 200px);
+    }
     
     .Footer{
   background: #a3ceac;
