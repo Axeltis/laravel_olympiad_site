@@ -103,11 +103,44 @@ background-color: transparent;
   font-family: 'Roboto', sans-serif;
   height: 100%;
   font-weight: 300;
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}        .imgPreview img {
+  /* bgc */
+     background: linear-gradient(358deg, #7cafaa, #d0fffa);
+    background-size: 400% 400%;
+
+    -webkit-animation: bodyBGgradient 4s ease infinite;
+    -moz-animation: bodyBGgradient 4s ease infinite;
+    -o-animation: bodyBGgradient 4s ease infinite;
+    animation: bodyBGgradient 4s ease infinite;
+}        
+
+.css-selector {
+   
+}
+
+@-webkit-keyframes bodyBGgradient {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-moz-keyframes bodyBGgradient {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@-o-keyframes bodyBGgradient {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+@keyframes bodyBGgradient {
+    0%{background-position:50% 0%}
+    50%{background-position:51% 100%}
+    100%{background-position:50% 0%}
+}
+
+
+
+        .imgPreview img {
             padding: 8px;
             max-width: 100px;
         }
