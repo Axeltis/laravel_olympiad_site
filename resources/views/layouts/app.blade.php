@@ -302,10 +302,10 @@ background-color: transparent;
                     @guest
                         <div class="btn-group btn-group-toggle " data-toggle="buttons">
                             @if (Route::has('login'))
-                                <a class="btn btn-light border-dark" href="{{ route('login') }}">{{ __('Вход') }}</a>
+                                <a class="btn btn-outline-dark " href="{{ route('login') }}">{{ __('Вход') }}</a>
                             @endif
                             @if (Route::has('register'))
-                                <a class="btn btn-light border-dark"
+                                <a class="btn btn-outline-dark "
                                    href="{{ route('register') }}">{{ __('Регистрация') }}</a>
                             @endif
                         </div>
@@ -315,7 +315,7 @@ background-color: transparent;
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button class="btn btn-light" type="submit"> {{ __('Выйти') }}</button>
+                                <button class="btn btn-outline-dark " type="submit"> {{ __('Выйти') }}</button>
                             </form>
                         </li>
 
