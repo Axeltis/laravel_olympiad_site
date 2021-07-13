@@ -40,7 +40,6 @@
   --underline-transition: 0.5s;
 }
         #app{
-            margin-bottom: 5vh;
             min-height: calc(100vh - 200px);
         }
 .navbar {
@@ -103,7 +102,7 @@ background-color: transparent;
    	body {
   font-family: 'Roboto', sans-serif;
   height: 100%;
-
+  font-weight: 300;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
@@ -340,7 +339,7 @@ background-color: transparent;
             </div>
             <div class="col">
                 <p>Контакты</p>
-                <i style="">Мардамшина Анна Александровна</i><br>
+                <p>Мардамшина Анна Александровна</p><br>
                 <a href="tel:+79603757217"><i class="bi bi-telephone me-2"></i>+79603757217</a><br>
                 <a href="mailto:mardamshinaa@bk.ru"><i class="bi bi-envelope me-2"></i>mardamshinaa@bk.ru</a><br>
             </div>
