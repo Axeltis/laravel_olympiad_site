@@ -35,13 +35,13 @@
 }
 
 .navbar {
-    position: relative;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
     align-items: center;
     padding: 0 1rem!important;
     margin: 20px !important;
+    backdrop-filter: blur(4px);
 }
 
 .carousel-inner{
@@ -232,7 +232,7 @@ background-color: transparent;
 
 <div id="app">
     
-  <nav class="navbar navbar-expand-sm navbar-dark shadow-sm border rounded border-success" style="padding:0 1rem!important">
+  <nav class="navbar sticky-top navbar-expand-sm navbar-dark shadow-sm border rounded border-success" style="padding:0 1rem!important">
         <div class="">
     <a class="navbar-brand" href="#">
        <img src="https://i.ibb.co/JKh8W7b/gotovy3.png" class="rounded" width=50>
