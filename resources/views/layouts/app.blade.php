@@ -107,10 +107,10 @@ background-color: transparent;
      background: linear-gradient(358deg, #7cafaa, #d0fffa);
     background-size: 400% 400%;
 
-    -webkit-animation: bodyBGgradient 4s ease infinite;
-    -moz-animation: bodyBGgradient 4s ease infinite;
-    -o-animation: bodyBGgradient 4s ease infinite;
-    animation: bodyBGgradient 4s ease infinite;
+    -webkit-animation: bodyBGgradient 5s ease infinite;
+    -moz-animation: bodyBGgradient 5s ease infinite;
+    -o-animation: bodyBGgradient 5s ease infinite;
+    animation: bodyBGgradient 5s ease infinite;
 }        
 
 .css-selector {
