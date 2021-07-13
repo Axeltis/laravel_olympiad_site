@@ -19,11 +19,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;0,900;1,900&display=swap" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 
     <style>
+            @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
    :root {
   --bg: white;
   --color: black;
@@ -95,7 +101,7 @@ background-color: transparent;
 }
 
    	body {
-  
+  font-family: 'Roboto', sans-serif;
   height: 100%;
 
   /* Center and scale the image nicely */
@@ -180,12 +186,9 @@ background-color: transparent;
   justify-content: center;
   flex-direction: column; 
   align-items: center;
-  /* margin-top: 5vh; */
+  margin-top: 5vh;
   border-top: 1px solid #00a651;
 }
-        .col p{
-            text-align: center;
-        }
         .col a{
             text-decoration: none;
             color: #fff;
