@@ -33,7 +33,10 @@
   --underline-color-hover: #198754;
   --underline-transition: 0.5s;
 }
-
+        #app{
+            margin-bottom: 5vh;
+            min-height: calc(100vh - 200px);
+        }
 .navbar {
     display: -ms-flexbox;
     display: flex;
@@ -92,10 +95,7 @@ background-color: transparent;
 }
 
    	body {
-  /* The image used */
-  background-image: url("https://sun9-1.userapi.com/impg/qOQcXxlBaQBxApjRuu6B_wRNpCARp-ChhkXpcg/8VYgrvsI4Oo.jpg?size=1280x853&quality=96&sign=f44a98a4027100243347ce393be3eb6a&type=album");
-
-  /* Full height */
+  
   height: 100%;
 
   /* Center and scale the image nicely */
@@ -168,6 +168,34 @@ background-color: transparent;
         text-indent: 1.3em;
         font-size: 1.4rem
     }
+    
+    
+    
+    .Footer{
+  background: #a3ceac;
+  color: #fff;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column; 
+  align-items: center;
+  /* margin-top: 5vh; */
+  border-top: 1px solid #00a651;
+}
+        .col p{
+            text-align: center;
+        }
+        .col a{
+            text-decoration: none;
+            color: #fff;
+        }
+        .col:nth-child(2){
+            border-right:1px solid white ;
+        }
+        .col:nth-child(3){
+            border-right:1px solid white ;
+        }
     @media screen  and (max-width: 765px) {
         .customLIbullets li::marker{
         font-size: .75rem;
@@ -297,61 +325,38 @@ background-color: transparent;
         @yield('content')
     </main>
 
-           
+     <div class="Footer">
+    <div class="row row-cols-5 w-100 ">
+        <div class="col"></div>
+            <div class="col">
+                <p>Наши партнеры</p>
+                  <a href="http://atr73.ru">              <img class="mb-2" src="http://atr73.ru/wp-content/uploads/2019/10/Untitled-2.png" width="150"></a><br>
+                  <a href="http://intelsi.ru">            <img class="mb-2" src="http://intelsi.ru/images/logo_01-02.svg?crc=4214952120" width="150"></a><br>
+                  <a href="https://www.simbirsoft.com">   <img class="mb-2" src="https://www.simbirsoft.com/local/templates/.default/img/ss-logo-symbol-blue-216-54.png" width="150"></a><br>
+                  <a href="https://ibs.ru/">              <img src="https://ibs.ru/local/templates/ibs-redesign/assets/images/ibs-logo.svg"  width="50"></a><br>
+            </div>
+            <div class="col">
+                <p>Контакты</p>
+                <i style="">Мардамшина Анна Александровна</i><br>
+                <a href="tel:+79603757217"><i class="bi bi-telephone me-2"></i>+79603757217</a><br>
+                <a href="mailto:mardamshinaa@bk.ru"><i class="bi bi-envelope me-2"></i>mardamshinaa@bk.ru</a><br>
+            </div>
+            <div class="col">
+                <p>Мы в социальных сетях</p>
+                <a href="https://vk.com/uaviakmck"><img class="me-2"src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/192px-VK.com-logo.svg.png" width="17">ВКонтакте</a><br>
+                <a href="https://www.instagram.com/uaviak_73/"><i class="bi bi-instagram me-2"></i>Instagram</a><br>
+                <a href="https://uaviak.ru/"><i class="bi bi-globe2 me-2"></i>УАвиаК - МЦК</a>
+            </div>
+            <div class="col"></div>
+        </div>
+
+    </div>      
 
 
 
 
 </div>
-<div class="container-fluid">
-<footer class="footer  pt-md-5 border-top"  style="border-radius: 30px;">
-        <div class="row">
 
-<div class="col-12 col-lg" style="text-align: right;">
-            <h4 class="text-light">Контакты</h4>
-<h5>
-           
-	        <ul class="text-small" >
-
-             <li> <a class="text-light" href="https://www.instagram.com/uaviak_73/" target="_blank" ><i class="fa  fa-instagram" aria-hidden="true"></i> Instagram</a></li>
-             <li> <a class="text-light" href="https://vk.com/uaviakmck" target="_blank" ><i class="fa  fa-vk" aria-hidden="true"></i> ВКонтакте </a></li>
-             <li> <a class="text-light" href="https://uaviak.ru/" target="_blank" ><img src="https://i.ibb.co/Ybg2f20/logo.png" style="width:10%; height: 5%"> УАвиаК - МЦК</a> </li>
-  
-</ul>
-<p>
-<ul class="text-small text-info text-light" >
-  <li>Мардамшина Анна Александровна</li>
- <li>+79603757217</li>
- <li>mardamshinaa@bk.ru</li>
-</ul>
-<p><p><p><p><p><p><p><p><p><p><p>
-</h5>
-          </div>
-
-<div class="col-12 col-lg">
-            <h4  class="text-light">Наши партнеры</h4>
-<h5>
-            <ul class="text-small">
-	      <li style="padding-right:7rem;"><a class="text-light" href="https://atr73.ru/" target="_blank">Агенство технологического развития</a></li>
-              <li style="padding-right:7rem;"><a class="text-light" href="https://www.simbirsoft.com/" target="_blank" ><img src="https://i.ibb.co/XkXB2Sz/logo.png" style="width:20%;height:auto" ></a></li>
-              <li style="padding-right:7rem;"><a class="text-light" href="http://intelsi.ru/" target="_blank" >Интелси</a></li>
-              <li style="padding-right:7rem;"><a class="text-light" href="https://ibs.ru/" target="_blank" ><img src="https://i.ibb.co/4jXymTb/ibs-logo.png" style="width:12%;height:auto" ></a></li>
-            </ul>
-</h5>
-          </div>
-   
-
-
-          <div class="col-6 col-md">
-                 </div>
-
-
-          
-           
-
-        </div>
-   </footer>
-  </div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
