@@ -153,34 +153,34 @@ background-color: transparent;
         display: flex;
         justify-content: center;
         color: aliceblue;
-        font-size: 1.7rem;
+        font-size: 1.4rem;
     }
     .customLIbullets li::marker{
-        font-size: 1.7rem;
+        font-size: 1.4rem;
         content: "»";
         font-weight: 800;
     }
     li{
-        font-size: 1.65rem;
+        font-size: 1.35rem;
         padding-left: 1.4em
     }
   .card-body  p{
-        text-indent: 1.5em;
-        font-size: 1.7rem
+        text-indent: 1.3em;
+        font-size: 1.4rem
     }
     @media screen  and (max-width: 765px) {
         .customLIbullets li::marker{
-        font-size: .81rem;
+        font-size: .75rem;
         content: "»";
         font-weight: 800;
     }
     li{
         padding-left: 1.1em;
-        font-size: .81rem;
+        font-size: .75rem;
     }
   .card-body  p{
         text-indent: 1.1em;
-        font-size: .91rem
+        font-size: .8rem
     }
     .facts{
         margin: 0 auto;
@@ -192,22 +192,22 @@ background-color: transparent;
         display: flex;
         justify-content: center;
         color: aliceblue;
-        font-size: .85rem;
+        font-size: .8rem;
     }
     }
     @media screen  and (max-width: 1024px) and (min-width:765px) {
         .customLIbullets li::marker{
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         content: "»";
         font-weight: 800;
     }
     li{
-        font-size: 1.25rem;
+        font-size: 1.2rem;
         padding-left: 1.2em
     }
   .card-body  p{
-        text-indent: 1.1em;
-        font-size: 1.3rem
+        text-indent: 1em;
+        font-size: 1.1rem
     }
     .facts{
         margin: 0 auto;
@@ -219,7 +219,7 @@ background-color: transparent;
         display: flex;
         justify-content: center;
         color: aliceblue;
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     }
            
